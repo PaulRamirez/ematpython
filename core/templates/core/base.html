@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %} {% endblock %} | EMAT </title>
+    {% load static %}
+    <link href="{% static 'core/images/favicon_emat.png' %}" rel="icon" />
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+</head>
+<body class="login d-flex align-items-center {% if request.path == '/ggalbas/' or request.path == '/ggalbas/recuperaClave' %} justify-content-center {% elif request.path == '/ggalbas/nuevoAlumno' %} template-modulo border-none {% endif %}  ">
+
+    {% block content %} {% endblock %}
+
+    {% block modales %}
+       <!-- Modal Registro -->
+    <div id="modalOk" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+        <!-- Contenido del modal -->
+            <div class="modal-content position-relative">
+            <!--<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>-->
+                <div class="modal-body text-center px-5 py-4">
+                    <div class="d-none d-sm-flex position-absolute" style="top: -50px;right: -50px;"><img src="{% static 'core/images/objetos/check.png' %}" alt="check"></div>
+                    <div class="textModal">
+                        <div>Tu password es</div>
+                        <div id="textoOkModal"></div>
+                        <div>presiona Aceptar y estarás listo</div>
+                        <div>para entrar al programa usando</div>
+                        <div>tu rut y password</div>
+                        <div class="azul">¡Anótala en un lugar seguro!</div>
+                    </div>
+                    <div class="d-inline-block">
+                        <button id="aceptar" type="button" class="btn btn-primary btn-lg btn-principal btn-block mb-3 cerrar" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+               <!-- <div class="modal-footer"></div>-->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Error -->
+    <div id="modalError" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content position-relative">
+                <!--<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>-->
+                <div class="modal-body text-center px-5 py-4">
+                 <!--   <div class="d-none d-sm-flex position-absolute" style="top: -50px;right: -50px; width: 17%"><img src="{% static 'core/images/objetos/cancel.png' %}" alt="cancelar"></div> -->
+                    <div id="textoErrorModal" class="textModal"></div>
+                    <div class="d-inline-block">
+                        <button type="button" class="btn btn-primary btn-lg btn-principal btn-block mb-3 cerrar" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+                <!--<div class="modal-footer"></div>-->
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal Si No -->
+    <div class="modal fade" id="ModalResponderPreguntaSiNo" tabindex="-1" role="dialog" aria-labelledby="ModalResponderPreguntaSiNoTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-white position-relative">
+                <div class="modal-body text-center px-5 py-4">
+                    No has respondido la pregunta, ¿Estás seguro que quieres avanzar? Responde Sí o No.
+                    <div class="d-inline-block w-100">
+                        <button type="button" class="d-inline-block mx-2 btn mt-2 btn-modal-no text-shadow box-shadow"
+                            data-dismiss="modal">No</button>
+                        <button type="button" class="d-inline-block mx-2 btn mt-2 btn-modal-si text-shadow box-shadow"
+                            data-dismiss="modal">Si</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     {% endblock %}
+
+    <script src="{% static 'core/js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'core/js/jquery-ui.js' %}"></script>
+    <script src="{% static 'core/js/popper.min.js' %}"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>-->
+     <script src="{% static 'core/js/bootstrap.min.js' %}"></script>
+    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>-->
+    <script src="{% static 'core/js/main.js' %}"></script>
+    {% block extrascript %} {% endblock %}
+</body>
+</html>

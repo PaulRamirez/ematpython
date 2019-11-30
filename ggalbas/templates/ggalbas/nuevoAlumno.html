@@ -1,0 +1,161 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %} Registro Alumno {% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-form-54 col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+            <div class="box-container rounded-box shadow-sm position-relative">
+                <div class="position-absolute d-none d-md-block shape-shadow" style="left: -125px;bottom: -40px;">
+                    <img src="{% static 'core/images/personajes/caco14130818.png' %}" width="200">
+                </div>
+                <div class="position-absolute d-none d-md-block shape-shadow" style="right: -95px;bottom: -30px;">
+                    <img src="{% static 'core/images/personajes/coni_19-3_01.png' %}" width="175">
+                </div>
+                <header class="bg-gradient-yellow rounded-header libro-alumno basico text-white text-center">
+                    <div class="w-100">
+                        <img src="{% static 'core/images/branding/logo.png' %}" class="img-fluid header-logo my-3" width="200" alt="eMat">
+                    </div>
+                    <div class="w-100">
+                        <h1 class="h3 py-2 mb-0 text-shadow">Inscripción Alumno Nuevo</h1>
+                    </div>
+                </header>
+                <div class="col-md-10 offset-md-1 mb-2">
+                    <div class="text-right my-2 mb-md-3">
+                        <a href="{% url 'index' %}">
+                            <button type="button" class="btn btn-back back"><span><img src="{% static 'core/images/objetos/triangle-curved.svg' %}" class="mr-1" width="18"></span> Volver</button>
+                        </a>
+                    </div>
+                    <form class="form-alumno-nuevo" method="post" autocomplete="off">
+                        {% csrf_token %}
+                        <div class="form-group row mb-2">
+                            <div class="col-sm-3 px-md-0 text-sm-right">
+                                <label for="alumnonuevo-rut" class="col-form-label">Rut:</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <input type="text" class="form-control input-number" id="rut" placeholder="Ejemplo: 11111111" maxlength="8" autofocus>
+                                    </div>
+                                    <div class="col-1 px-0 text-center">
+                                            <label for="alumnonuevo-rut-cod" class="col-form-label px-md-0 text-center">-</label>
+                                    </div>
+                                    <div class="col-3">
+                                        <input type="text" class="form-control p-0 text-center" id  ="validador" placeholder="1" maxlength="1" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <div class="col-sm-3 px-md-0 text-sm-right">
+                                <label for="alumnonuevo-curso" class="col-form-label">Curso:</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-12 col-sm-7">
+                                        <select id="curso" class="custom-select form-control">
+                                            <option value="" selected="">...</option>
+                                            <option value="3">3 BÁSICO</option>
+                                            <option value="4">4 BÁSICO</option>
+                                            <option value="5">5 BÁSICO</option>
+                                            <option value="6">6 BÁSICO</option>
+                                            <option value="7">7 BÁSICO</option>
+                                            <option value="8">8 BÁSICO</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2 px-md-0 text-sm-right">
+                                        <label for="alumnonuevo-curso-letra" class="col-form-label">Letra:</label>
+                                    </div>
+                                    <div class="col-12 col-sm-3">
+                                        <input type="text" class="form-control p-0 text-center" id="letra" placeholder="A" onkeypress="return /[a-z]/i.test(event.key)" maxlength="3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <div class="col-sm-3 px-md-0 text-sm-right">
+                                <label for="alumnonuevo-codigo-lista" class="col-form-label ">Código Lista:</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <input type="text" class="form-control" id="codigo-lista" maxlength="30" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <div class="col-sm-3 px-md-0 text-sm-right">
+                                <label for="alumnonuevo-nombres" class="col-form-label">Nombres:</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <input type="text" class="form-control" id="nombres" maxlength="30">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <div class="col-sm-3 px-md-0 text-sm-right">
+                                <label for="alumnonuevo-nombres" class="col-form-label">Apellidos:</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <input type="text" class="form-control" id="apellidos" maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <div class="col-sm-3 px-md-0 text-sm-right">
+                                <label for="pregunta" class="col-form-label">Pregunta de Seguridad:</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-12 col-sm-12">
+                                        <select id="pregunta" class="custom-select form-control">
+                                            <option value="" selected="">...</option>
+                                            <option value="1">Nombre de tu apoderado</option>
+                                            <option value="2">Nombre de tu mascota</option>
+                                            <option value="3">Color favorito</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <div class="col-sm-3 px-md-0 text-sm-right">
+                                <label for="respuesta-pregunta" class="col-form-label">Respuesta:</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <input type="text" class="form-control" id="respuesta" maxlength="50" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-9 offset-sm-3">
+                            <div class="row">
+                                <button id="registro" type="button" class="btn btn-primary btn-lg btn-principal btn-block mb-3">Registrarme</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <footer class="bg-basica rounded-footer text-white text-shadow text-center py-1 small font-weight-bold">EMAT | BÁSICA</footer>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block extrascript %}
+    <script src="{% static 'ggalbas/js/DjangoAjax.js' %}"></script>
+    <script src="{% static 'ggalbas/js/nuevoAlumno.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'ggalbas/base.html' %}
+{% load static %}
+{% block title %} Unidades Alumno {% endblock %}
+
+{% block header %}  panel-celeste py-2 {% endblock %}
+
+{% block bg-imagen %} background-image: url('{% static 'core/images/fondos/sur2.png' %} {% endblock %}
+
+{% block barra %}
+
+         <div class="col-6 col-sm-6 mb-2 mb-sm-0 text-left">
+            <div class="nombre-alumno mb-1 font-weight-bold">¡Bienvenid@! <span class="color-red d-block">{{ nombres }}</span></div>
+            <div class="row">
+                <div class="col-12 unidad">{{nivel}}</div>
+                <div class="col-12 colegio">{{rbd}}</div>
+            </div>
+        </div>
+
+        <div class="col-6 col-sm-6 d-flex align-items-center justify-content-end flex-wrap text-right header-profile">
+            <a href="#" class="btn mis-logros text-shadow">
+                Mis Logros
+            </a>
+            <a href="#" class="btn salir text-shadow">
+                Salir
+            </a>
+        </div>
+
+{% endblock %}
+
+{% block unidades %}
+
+<div class="container-fluid bg-blue py-3">
+            <div class="row">
+                <div class="container d-lg-none">
+                    <h5 class="text-white">Unidades</h5>
+                </div>
+                <ul class="list-group list-group-horizontal flex-wrap container-unidades actividades-unidades m-auto justify-content-center">
+                  <li class="list-group-item p-0 actual"><a href="#" class="btn px px-md-3 py-2 disabled"><span class="d-none d-lg-inline-block">Unidad</span> 1</a></li>
+                    <li class="list-group-item p-0 "><a href="#" class="btn px px-md-3 py-2 disabled"><span class="d-none d-lg-inline-block">Unidad</span> 2</a></li>
+                    <li class="list-group-item p-0 "><a href="#" class="btn px px-md-3 py-2 disabled"><span class="d-none d-lg-inline-block">Unidad</span> 3</a></li>
+                    <li class="list-group-item p-0 "><a href="#" class="btn px px-md-3 py-2 disabled"><span class="d-none d-lg-inline-block">Unidad</span> 4</a></li>
+                    <li class="list-group-item p-0"><a href="#" class="btn px px-md-3 py-2 disabled"><span class="d-none d-lg-inline-block">Unidad</span> 5</a></li>
+                    <li class="list-group-item p-0 profesores"><a href="#" class="btn px px-md-3 py-2 disabled"><span class="d-none d-lg-inline-block">Unidad</span> 6</a></li>
+                    <li class="list-group-item p-0"><a href="#" class="btn px px-md-3 py-2 disabled"><span class="d-none d-lg-inline-block">Unidad</span> 7</a></li>
+                    <li class="list-group-item p-0"><a href="#" class="btn px px-md-3 py-2 disabled"><span class="d-none d-lg-inline-block">Unidad</span> 8</a></li>
+                </ul>
+            </div>
+        </div>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+              <div class="d-sm-none text-center col-12 col-sm-5 col-md-6 col-lg-5 personajes-diagnostico">
+                        <img src="{% static 'core/images/personajes/globo-basica3-8_1.png' %}"  class="img-fluid m-auto">
+                </div>
+                <div class="col-12 col-sm-7 col-md-6 col-lg-5 offset-0 offset-sm-0 offset-lg-1">
+                    <div class="bg-white-90 rounded-lg p-3 p-sm-4 border border-white">
+                         <ul class="list-group flex-wrap list-desglose-contenido">
+                              <li class="list-group-item d-flex justify-content-between align-items-center p-0">
+                                <a href="{% url 'contenidosAlumno' %}" class="text-left actual d-flex justify-content-between align-items-center px-2 py-1 w-100 btn"> Números enteros
+                                    <span class="badge"><img src="{% static 'core/images/objetos/alumno1.png' %}"  class="img-fluid" width="30"></span>
+                                </a>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-0">
+                                <a href="#" class="text-left d-flex justify-content-between align-items-center px-2 py-1 w-100 btn disabled"> Números enteros
+                                    <span class="badge"><img src="{% static 'core/images/objetos/ticket2.png' %}"  class="img-fluid" width="30" style="opacity:0"></span>
+                                </a>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-0">
+                                <a href="#" class="text-left d-flex justify-content-between align-items-center px-2 py-1 w-100 btn disabled"> Números enteros
+                                    <span class="badge"><img src="{% static 'core/images/objetos/ticket2.png' %}"  class="img-fluid" width="30" style="opacity:0"></span>
+                                </a>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-0">
+                                <a href="#" class="text-left d-flex justify-content-between align-items-center px-2 py-1 w-100 btn disabled"> Números enteros
+                                    <span class="badge"><img src="{% static 'core/images/objetos/ticket2.png' %}" class="img-fluid" width="30" style="opacity:0"></span>
+                                </a>
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-0">
+                                <a href="#" class="text-left d-flex justify-content-between align-items-center px-2 py-1 w-100 btn disabled"> Números enteros
+                                    <span class="badge"><img src="{% static 'core/images/objetos/ticket2.png' %}" class="img-fluid" width="30" style="opacity:0"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="d-none d-sm-block col-12 col-sm-5 col-md-6 col-lg-5 personajes-diagnostico">
+                    <div class="d-flex align-items-start personajes-botttom" style="overflow: hidden;">
+                        <img src="{% static 'core/images/personajes/basica3-8_1.png' %}" class="img-fluid m-auto">
+                    </div>
+                </div>
+
+{% endblock %}
