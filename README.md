@@ -1,3 +1,3 @@
 # emat
 
-proyecto emat basico guiado desarrolloado en lenguaje python.
+proyecto emat basico guiado desarrollado en lenguaje python.
