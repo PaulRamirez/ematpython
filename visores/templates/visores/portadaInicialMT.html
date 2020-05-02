@@ -1,0 +1,58 @@
+{% extends 'visores/base.html' %}
+{% load static %}
+{% block title %} Portada Inicial MT {% endblock %}
+
+{% block body %}
+
+    class="template-modulo border-red d-flex flex-column flex-wrap vertical-center align-items-center" style="background-image: url('{% static 'core/images/fondos/fondoMT.png' %}"
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container d-flex flex-column justify-content-end flex-1 pb-0 pt-4">
+    <div class="row">
+
+        <div class="col-12 col-lg-12 order-md-0 text-center text-lg-right">
+            <div class="offset-lg-1 col-lg-10 border-3 bg-white shadow-lg text-left border-celeste p-4 portada-inicial-text pb-5 pb-md-4 mb-5">
+                <h4 class="h4-minitest">MINI TEST</h4>
+                <p>Antes de comenzar esta unidad, te invitamos a realizar un Mini Test, para evaluar si necesitas o no, repasar contenidos previos. Lee con atenci&oacute;n cada pregunta antes de responder y si no dominas un contenido s&oacute;lo avanza.</p>
+            </div>
+            <div class="d-lg-none btn-arrow-right text-center mt-md-3 portada-inicial-btn">
+                <a href="#" class="d-flex botonAvanzarMT"><div class="flecha-lg-b mx-auto border-0 shadow-lg portada-inicial-btn mb-3"></div></a>
+            </div>
+        </div>
+
+        <div class="col-lg-9 text-center text-lg-right">
+
+            {% if request.session.numero_nivel >= 3 and request.session.numero_nivel <= 5 %}
+                <img src="{% static 'core/images/personajes/' %}personajes-MT_3-5.png" class="img-fluid">
+            {% elif request.session.numero_nivel >= 6 and request.session.numero_nivel <= 8 %}
+                <img src="{% static 'core/images/personajes/' %}personajes-MT_6-8.png" class="img-fluid">
+            {% endif %}
+        </div>
+
+        <div class="col-md-12 col-lg-3 d-none d-lg-flex flex-wrap align-self-center justify-content-center mt-2 mt-md-0">
+            <div class="btn-arrow-right text-center mt-md-3 portada-inicial-btn">
+                <a href="#"  class="d-flex botonAvanzarMT"><div class="flecha-lg-b mx-auto border-0 shadow-lg"></div></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+        <audio autoplay>
+            <source src="{% static 'core/audios/portadas/MT_A3_portada_inicial.ogg' %}" type="audio/ogg">
+            <source src="{% static 'core/audios/portadas/MT_A3_portada_inicial.mp3' %}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'core/js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'core/js/jquery-ui.js' %}"></script>
+    <script src="{% static 'core/js/popper.min.js' %}" ></script>
+    <script src="{% static 'core/js/bootstrap.min.js' %}" ></script>
+    <script src="{% static 'visores/js/portadaInicialMT.js' %}"></script>
+{% endblock %}

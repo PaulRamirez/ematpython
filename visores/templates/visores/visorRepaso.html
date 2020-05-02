@@ -1,0 +1,275 @@
+{% extends 'visores/base.html' %}
+
+{% load static %}
+
+{% block title %} Visor de Repaso {% endblock %}
+
+{% block body %}
+
+    class="d-flex flex-column flex-wrap vertical-center border-green "
+
+{% endblock %}
+
+{% block content %}
+
+   <div class="header modulo-info d-md-inline-block text-center  px-3 w-100 shadow-sm  align-self-start text-white"  >
+        <div class="row">
+
+            <div class="col-5 col-sm-3 col-lg-2 text-center d-flex align-items-center bg-verde">
+                <button id="botonVolverVisorRepaso" type="button" class="btn btn-light rounded-pill box-shadow w-100"><span><img src="{% static 'core/images/objetos/triangle-curved.svg' %}" width="18"></span> Volver</button>
+            </div>
+
+            <div class="col-7 col-sm-9 col-lg-10 bg-verde">
+                <div class="barra-estado bg-white-75 rounded p-1 my-2 text-left">
+                    <span class="px-2 align-middle d-inline-block"> Est&aacute;s en: <strong>{{nombre_actividad}}</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid d-flex flex-column justify-content-center flex-1 px-0 py-3">
+        <div class="container">
+            <form method="post" name="formVisorRepaso" autocomplete="off">
+                {% csrf_token %}
+                    <input type="hidden" name="numero_nivel" id="numero_nivel" value="{{request.session.numero_nivel}}">
+                    <input type="hidden" name="id_alumno_actividad" id="id_alumno_actividad" value="{{id_alumno_actividad}}">
+                    <input type="hidden" name="nombre_actividad" id="nombre_actividad" value="{{nombre_actividad}}">
+                    <input type="hidden" name="npregunta" id="npregunta" value="{{npregunta}}">
+                    <input type="hidden" name="tipo_ejercicio" id="tipo_ejercicio" value="{{tipoEjercicio}}">
+                    <input type="hidden" name="num_campos_completar" id="num_campos_completar" value="{{num_campos_completar}}">
+                <div class="row">
+
+                    <div class="carga">
+                          <img src="{% static 'core/images/favicon_emat.png' %}" alt="carga-ejercicio">
+                          <img src="{% static 'core/images/image.gif' %}" alt="carga-ejercicio">
+                    </div>
+
+                    <div class="w-100 text-center">
+                        <div class="box-container rounded-box rounded-botonera-tablet position-relative m-auto d-inline-block">
+
+                            <div id="div_input" class="position-absolute w-100 h-100 radio-seleccion" style="display:flex;">
+
+                                {% for boton in botones %}
+
+                                    {% if boton.0 %}
+                                        {% widthratio boton.0 5.039 1 as top %}
+                                        {% widthratio boton.1 8.050 1 as left %}
+                                        {% widthratio boton.2 7.5 1 as width %}
+                                        {% widthratio boton.3 4.538 1 as height %}
+
+                                        {% if tipoEjercicio == 1 %}
+                                            <div class="item-absolute" style="top:{{top}}%; left:{{left}}%; width:{{width}}%; height: {{height}}%">
+                                                <input type = "text" id ="fill-{{forloop.counter}}" name="fill-{{forloop.counter}}" value=""  class ="input_fill bg-white h-100 w-100 fill-input" ondrop="return false;" style="text-align: center; background: transparent !important; border: none !important;">
+                                            </div>
+                                        {% endif %}
+
+                                        {% if tipoEjercicio == 2 %}
+                                            <input type="radio" id="radio-{{forloop.counter}}" name="inputRadio" value="{{forloop.counter}}" class="input_radio">
+                                            <label for="radio-{{forloop.counter}}" style="width:{{width}}%;height: {{height}}%;left: {{left}}%;top: {{top}}%;"></label>
+                                        {% endif %}
+
+                                        {% if tipoEjercicio == 3 %}
+
+                                                <input type="checkbox" id="checkbox-{{forloop.counter}}" name="checkbox-{{forloop.counter}}" value="{{ alternativa|get_item:forloop.counter }}"  class="input_checkbox">
+                                                <label for="checkbox-{{forloop.counter}}" style="width:{{width}}%;height: {{height}}%;left: {{left}}%;top: {{top}}%;"></label>
+
+                                        {% endif %}
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                            </div>
+
+                            <img id="imagen_ejercicio" src="data:{{tipo}};base64,{{ img }}" width="100%" class="img-fluid img-modulo-800" >
+
+                            <div id="numeroEjercicio" class="page-number text-black text-shadow position-absolute d-flex justify-content-center align-items-center width-number-1" title="{{ npregunta }} / {{total_ejercicios }}" >
+                                <span class="bg-white d-flex justify-content-center align-items-center align-middle rounded-bottom font-weight-bold box-shadow">{{ npregunta }}</span>
+                            </div>
+
+                            {% if request.session.numero_nivel >= 3 and request.session.numero_nivel <= 4 %}
+                                 <div id="div_parlanteEjercicio" class="btn-sonido position-absolute" >
+                                     <a id="parlanteEjercicio" href="#" class="d-flex"><div class="botonParlante"></div></a>
+                                 </div>
+
+                                 <div id="div_parlanteSolucionEjercicio" class="btn-sonido position-absolute" style="display: none">
+                                     <a id="parlanteSolucionEjercicio" href="#" class="d-flex" ><div class="botonParlante"></div></a>
+                                 </div>
+                            {% endif %}
+
+                            <div id="div_botonAvanzarEjercicio" class="btn-arrow-right position-absolute" >
+                                <a href="#" id="botonAvanzarEjercicio" class="d-flex" role="button" aria-disabled="true"><div class="botonFlecha"></div></a>
+                            </div>
+
+                            <div id="div_botonAvanzarSolucionEjercicio" class="btn-arrow-right position-absolute"  style="display: none">
+                                <a href="#" id="botonAvanzarSolucionEjercicio" class="d-flex" role="button" aria-disabled="true"><div class="botonFlecha"></div></a>
+                            </div>
+
+                        </div>
+
+                          {% if tipoEjercicio == 1 %}
+                                    <div class="w-100 text-center">
+                                        <div class="d-inline-block d-xl-none container-botonera container-botonera-border text-shadow mx-auto pt-0 mw-100" >
+                                            <div class="buttons d-inline-flex p-1 p-md-2 rounded-lg img-modulo-800 overflow-auto" style="flex-wrap: wrap;">
+                                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">1</button>
+                                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">2</button>
+                                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">3</button>
+                                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">4</button>
+                                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">5</button>
+                                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">6</button>
+                                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">7</button>
+                                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">8</button>
+                                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">9</button>
+                                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">0</button>
+                                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">+</button>
+                                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">-</button>
+                                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">,</button>
+                                                <button type="button" class="btn borrar flex-fill mx-md-1 text-shadow" id="botonBorrar">Borrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                         {% endif %}
+                    </div>
+
+                         <audio id="audioEjercicio" autoplay>
+                            <source src="{% if request.session.numero_nivel >= 3 and request.session.numero_nivel <= 4 %} {% static 'core/audios/materiales/' %}{{nombre_actividad|lower}}_e{{npregunta}}_int.ogg{% endif %}" type="audio/ogg">
+                            <source src="{% if request.session.numero_nivel >= 3 and request.session.numero_nivel <= 4 %} {% static 'core/audios/materiales/' %}{{nombre_actividad|lower}}_e{{npregunta}}_int.mp3{% endif %}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+
+                        <audio id="audioSolucionEjercicio" >
+                            <source id="src_ogg_solucion_ejercicio" src="" type="audio/ogg">
+                            <source id="src_mp3_solucion_ejercicio" src="" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+
+                        <audio id="audioPreguntaObligatoria">
+                            <source src="{% static 'core/audios/modales/preguntaObligatoria.ogg' %}" type="audio/ogg">
+                            <source src="{% static 'core/audios/modales/preguntaObligatoria.mp3' %}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+
+                        <audio id="audioIntentoFallidoPreguntaAlternativa">
+                            <source src="{% static 'core/audios/modales/intentoFallidoPreguntaAlternativa.ogg' %}" type="audio/ogg">
+                            <source src="{% static 'core/audios/modales/intentoFallidoPreguntaAlternativa.mp3' %}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+
+                        <audio id="audioUltimoIntentoFallidoAlternativa">
+                            <source src="{% static 'core/audios/modales/ultimoIntentoFallidoAlternativa.ogg' %}" type="audio/ogg">
+                            <source src="{% static 'core/audios/modales/ultimoIntentoFallidoAlternativa.mp3' %}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+
+                        <audio id="audioIntentoFallidoPreguntaFill">
+                            <source src="{% static 'core/audios/modales/intentoFallidoPreguntaFill.ogg' %}" type="audio/ogg">
+                            <source src="{% static 'core/audios/modales/intentoFallidoPreguntaFill.mp3' %}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+
+                        <audio id="audioUltimoIntentoFallidoPreguntaFill">
+                            <source src="{% static 'core/audios/modales/ultimoIntentoFallidoPreguntaFill.ogg' %}" type="audio/ogg">
+                            <source src="{% static 'core/audios/modales/ultimoIntentoFallidoPreguntaFill.mp3' %}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block modales %}
+        <!-- Modal pregunta Obligatoria -->
+        <div class="modal fade" id="ModalPreguntaObligatoria" tabindex="-1" role="dialog" aria-labelledby="ModalPreguntaObligatoriaTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content position-relative">
+                <div class="modal-body text-center px-5 py-4">
+                    <div class="d-none d-sm-flex position-absolute" style="top: -50px;right: -50px;"><img src="{% static 'core/images/objetos/laptop-atencion.png' %}" alt="atencion"></div>
+                        Debes responder el ejercicio para avanzar.
+                    <div class="d-inline-block w-100">
+                        <button type="button" class="btn mt-2 btn-modal-ok text-shadow box-shadow" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal intento fallido - alternativa unica y alternativa Multiple A2 -->
+        <div class="modal fade" id="ModalIntentoFallidoPreguntaAlternativa" tabindex="-1" role="dialog" aria-labelledby="ModalIntentoFallidoPreguntaAlternativaTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content position-relative">
+                    <div class="modal-body text-center px-5 py-4">
+                        <div class="d-none d-sm-flex position-absolute" style="top: -50px;right: -50px;"><img src="{% static 'core/images/objetos/laptop-atencion.png' %}" alt="atencion"></div>
+                            Tu respuesta es incorrecta, int&eacute;ntalo de nuevo.
+                        <div class="d-inline-block w-100">
+                            <button type="button" class="btn mt-2 btn-modal-ok text-shadow box-shadow" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal ultimo intento - alternativa unica y alternativa Multiple A2  -->
+        <div class="modal fade" id="ModalUltimoIntentoFallidoPreguntaAlternativas" tabindex="-1" role="dialog" aria-labelledby="ModalUltimoIntentoFallidoPreguntaAlternativasTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content position-relative">
+                    <div class="modal-body text-center px-5 py-4">
+                        <div class="d-none d-sm-flex position-absolute" style="top: -50px;right: -50px;"><img src="{% static 'core/images/objetos/laptop-atencion.png' %}" alt="atencion"></div>
+                            Observa las respuesta correcta, haz click sobre ella y avanza.
+                        <div class="d-inline-block w-100">
+                            <button type="button" class="btn mt-2 btn-modal-ok text-shadow box-shadow" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal  intento fallido - Preguntas Fill A2  -->
+        <div class="modal fade" id="ModalIntentoFallidoPreguntaFill" tabindex="-1" role="dialog" aria-labelledby="ModalIntentoFallidoPreguntaFillTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content position-relative">
+                    <div class="modal-body text-center px-5 py-4">
+                        <div class="d-none d-sm-flex position-absolute" style="top: -50px;right: -50px;"><img src="{% static 'core/images/objetos/laptop-atencion.png' %}" alt="atencion"></div>
+                            Tus respuestas marcadas en rojo no son correctas, int&eacute;ntalo de nuevo.
+                        <div class="d-inline-block w-100">
+                            <button type="button" class="btn mt-2 btn-modal-ok text-shadow box-shadow" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal ultimo intento - Preguntas Fill A2  -->
+        <div class="modal fade" id="ModalUltimoIntentoFallidoPreguntaFill" tabindex="-1" role="dialog" aria-labelledby="ModalUltimoIntentoFallidoPreguntaFillTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content position-relative">
+                    <div class="modal-body text-center px-5 py-4">
+                        <div class="d-none d-sm-flex position-absolute" style="top: -50px;right: -50px;"><img src="{% static 'core/images/objetos/laptop-atencion.png' %}" alt="atencion"></div>
+                            Observa la respuesta correcta y presiona la flecha para avanzar.
+                        <div class="d-inline-block w-100">
+                            <button type="button" class="btn mt-2 btn-modal-ok text-shadow box-shadow" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        var static_url = "{% get_static_prefix %}";
+    </script>
+    <script src="{% static 'core/js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'core/js/jquery-ui.js' %}"></script>
+    <script src="{% static 'core/js/popper.min.js' %}" ></script>
+    <script src="{% static 'core/js/bootstrap.min.js' %}" ></script>
+    <script src="{% static 'visores/js/DjangoAjax.js' %}"></script>
+    <script src="{% static 'visores/js/visorRepaso.js' %}"></script>
+
+{% endblock %}
+
+
+

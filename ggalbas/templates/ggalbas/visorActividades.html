@@ -1,113 +1,144 @@
 {% extends 'ggalbas/base.html' %}
-{% load static %}
-{% block title %} Actividad {{prueba}} {% endblock %}
 
-{% block header %}  align-self-start text-white {% endblock %}
+{% load static %}
+
+{% block title %} Actividad {{nombre_actividad}} {% endblock %}
+
+{% block header %}
+
+    class="header modulo-info d-md-inline-block text-center  px-3 w-100 shadow-sm  align-self-start text-white"
+
+{% endblock %}
 
 {% block barra %}
+
     <div class="col-5 col-sm-3 col-lg-2 text-center d-flex align-items-center bg-verde">
         <button id="vuelveAnteP" type="button" class="btn btn-light rounded-pill box-shadow w-100"><span><img src="{% static 'core/images/objetos/triangle-curved.svg' %}" width="18"></span> Volver</button>
     </div>
+
     <div class="col-7 col-sm-9 col-lg-10 bg-verde">
         <div class="barra-estado {% if  request.path == '/ggalbas/visorActividades' %} bg-white-75 {% else %} bg-white-50 {% endif %}  rounded p-1 my-2 text-left">
-            <span class="px-2 align-middle d-inline-block"> Est&aacute;s en: <strong>{{descripcion}}</strong></span>
+            <span class="px-2 align-middle d-inline-block"> Est&aacute;s en: <strong>{{descripcion_actividades}}</strong></span>
         </div>
     </div>
+
 {% endblock %}
+
 {% block content %}
-<div class="w-100 text-center">
-    <div class="box-container rounded-box rounded-botonera-tablet position-relative m-auto d-inline-block">
-        <div class="position-absolute w-100 h-100 radio-seleccion" style="display:flex;">
 
-            {% for boton in botones %}
+           <div class="carga">
+               <img src="{% static 'core/images/favicon_emat.png' %}" alt="carga-ejercicio">
+               <img src="{% static 'core/images/image.gif' %}" alt="carga-ejercicio">
+           </div>
 
-                {% if boton.0 %}
-                    {% widthratio boton.0 5.039 1 as top %}
-                    {% widthratio boton.1 8.050 1 as left %}
-                    {% widthratio boton.2 7.5 1 as width %}
-                    {% widthratio boton.3 4.538 1 as height %}
+           <div class="w-100 text-center">
+        <div class="box-container rounded-box rounded-botonera-tablet position-relative m-auto d-inline-block">
 
-                    {% if tipoE == 1 %}
+            <div class="position-absolute w-100 h-100 radio-seleccion" style="display:flex;">
 
-                    <div class="item-absolute" style="top:{{top}}%; left:{{left}}%; width:{{width}}%; height: {{height}}%">
+                {% for boton in botones %}
 
-                        <input id = "fill-{{forloop.counter}}" type = "text" class ="bg-white h-100 w-100 fill-input" style="text-align: center; background: transparent !important; border: none !important;">
- 
-                    </div>
+                    {% if boton.0 %}
+                        {% widthratio boton.0 5.039 1 as top %}
+                        {% widthratio boton.1 8.050 1 as left %}
+                        {% widthratio boton.2 7.5 1 as width %}
+                        {% widthratio boton.3 4.538 1 as height %}
+
+                        {% if tipo_ejercicio == 1 %}
+                            <div class="item-absolute" style="top:{{top}}%; left:{{left}}%; width:{{width}}%; height: {{height}}%">
+                                <input type = "text" id ="fill-{{forloop.counter}}" name="fill-{{forloop.counter}}" value="" autocomplete="off" class ="input_fill bg-white h-100 w-100 fill-input" style="text-align: center; background: transparent !important; border: none !important;">
+                            </div>
+                        {% endif %}
+
+                        {% if tipo_ejercicio == 2 %}
+                            <input type="radio" id="radio-{{forloop.counter}}" name="inputRadio" value="{{ alternativa|get_item:forloop.counter }}" class="input_radio">
+                            <label for="radio-{{forloop.counter}}" style="width:{{width}}%;height: {{height}}%;left: {{left}}%;top: {{top}}%;"></label>
+                        {% endif %}
+
+                        {% if tipo_ejercicio == 3 %}
+                            <input type="checkbox" id="checkbox-{{forloop.counter}}" name="checkbox-{{forloop.counter}}" value="{{ alternativa|get_item:forloop.counter }}" class="input_checkbox">
+                            <label for="checkbox-{{forloop.counter}}" style="width:{{width}}%;height: {{height}}%;left: {{left}}%;top: {{top}}%;"></label>
+                        {% endif %}
+
                     {% endif %}
-                    {% if tipoE == 2 %}
-                        <input type="radio" id="{{forloop.counter}}" name="radios" value="false" class="radio-check">
-                        <label for="{{forloop.counter}}" style="width:{{width}}%;height: {{height}}%;left: {{left}}%;top: {{top}}%;"></label>
-                    {% endif %}
-                    {% if tipoE == 3 %}
-                        <input type="checkbox" id="{{forloop.counter}}" name="check" value="false" class="radio-check">
-                        <label for="{{forloop.counter}}" style="width:{{width}}%;height: {{height}}%;left: {{left}}%;top: {{top}}%;"></label>
-                    {% endif %}
 
-                {% endif %}
+                {% endfor %}
 
-            {% endfor %}
+            </div>
+
+            <img src="data:{{tipo}};base64,{{ img }}" width="100%" class="img-fluid img-modulo-800">
+
+            <div id="numeroEjercicio" class="page-number text-black text-shadow position-absolute d-flex justify-content-center align-items-center width-number-1" title="{{ npregunta }} / {{total_ejercicios }}" >
+                <span class="bg-white d-flex justify-content-center align-items-center align-middle rounded-bottom font-weight-bold box-shadow">{{ npregunta }}</span>
+            </div>
+
+            {% if request.session.numero_nivel >= 3 and request.session.numero_nivel <= 4 %}
+                <div class="btn-sonido position-absolute" >
+                    <a id="parlanteEjercicio" href="#" class="d-flex"><div class="sonido"></div></a>
+                </div>
+            {% endif %}
+
+            <div class="btn-arrow-right position-absolute" >
+                <a id="botonAvanzarEjercicio" href="#" class="d-flex" role="button" aria-disabled="true"><div class="flecha"></div></a>
+            </div>
 
         </div>
-
-        <img src="data:{{tipo}};base64,{{ img }}" width="100%" class="img-fluid img-modulo-800">
-        <div id="numeroEjercicio" class="page-number text-black text-shadow position-absolute d-flex justify-content-center align-items-center pr-1 pb-1 pr-md-2 pb-md-2" title="{{ nejercicio }} / {{total_ejercicios }}" >
-            <span class="bg-white d-flex justify-content-center align-items-center align-middle rounded-bottom font-weight-bold box-shadow">{{ nejercicio }}</span>
-        </div>
-
-        {% if ver_audio %}
-        <div class="btn-sonido position-absolute" id="botonRepetir">
-            <a href="#" class="d-flex">
-                <div class="sonido"></div>
-            </a>
-        </div>
-        {% endif %}
-
-        <div class="btn-arrow-right position-absolute" id="botonAvanzar">
-            <a href="#" class="d-flex">
-                <div id="flecha" class="flecha"></div>
-            </a>
-        </div>
-
-    </div>
-              {% if tipoE == 1 %}
-                        <div class="w-100 text-center">
-                            <div class="d-inline-block d-xl-none container-botonera container-botonera-border text-shadow mx-auto pt-0 mw-100" >
-                                <div class="buttons d-inline-flex p-1 p-md-2 rounded-lg img-modulo-800 overflow-auto" style="flex-wrap: wrap;">
-                                    <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">1</button>
-                                    <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">2</button>
-                                    <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">3</button>
-                                    <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">4</button>
-                                    <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">5</button>
-                                    <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">6</button>
-                                    <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">7</button>
-                                    <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">8</button>
-                                    <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">9</button>
-                                    <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">0</button>
-                                    <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">+</button>
-                                    <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">-</button>
-                                    <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">,</button>
-                                    <button type="button" class="btn borrar flex-fill mx-md-1 text-shadow" id="botonBorrar">Borrar</button>
-                                </div>
+         {% if tipo_ejercicio == 1 %}
+             <div class="w-100 text-center">
+                        <div class="d-inline-block d-xl-none container-botonera container-botonera-border text-shadow mx-auto pt-0 mw-100" >
+                            <div class="buttons d-inline-flex p-1 p-md-2 rounded-lg img-modulo-800 overflow-auto" style="flex-wrap: wrap;">
+                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">1</button>
+                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">2</button>
+                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">3</button>
+                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">4</button>
+                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">5</button>
+                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">6</button>
+                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">7</button>
+                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">8</button>
+                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">9</button>
+                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">0</button>
+                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">+</button>
+                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">-</button>
+                                <button type="button" class="btn flex-fill mx-md-1 text-shadow tecladoVirtual">,</button>
+                                <button type="button" class="btn borrar flex-fill mx-md-1 text-shadow" id="botonBorrar">Borrar</button>
                             </div>
                         </div>
-             {% endif %}
-</div>
+                    </div>
+         {% endif %}
+    </div>
 
-         <audio id="player"  muted autoplay>
-            <source src="{% if ver_audio %}{% static 'core/audios/' %}{{audio_pregunta}}.ogg{% endif %}" type="audio/ogg">
-            <source src="{% if ver_audio %}{% static 'core/audios/' %}{{audio_pregunta}}.mp3{% endif %}" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+           <audio id="audioEjercicio" autoplay>
+                <source src="{% if request.session.numero_nivel >= 3 and request.session.numero_nivel <= 4 %} {% static 'core/audios/' %}{{audio_pregunta}}.ogg {% endif %}" type="audio/ogg">
+                <source src="{% if request.session.numero_nivel >= 3 and request.session.numero_nivel <= 4 %} {% static 'core/audios/' %}{{audio_pregunta}}.mp3 {% endif %}" type="audio/mpeg">
+                Your browser does not support the audio element.
+           </audio>
 
         <audio id="audioSinRespuesta">
-            <source src="{% static 'core/audios/sin_respuesta.ogg' %}" type="audio/ogg">
-            <source src="{% static 'core/audios/sin_respuesta.mp3' %}" type="audio/mpeg">
+            <source src="{% static 'core/audios/modales/preguntaSinResponder.ogg' %}" type="audio/ogg">
+            <source src="{% static 'core/audios/modales/preguntaSinResponder.mp3' %}" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
 
 {% endblock %}
+
+{% block modales %}
+      <!-- Modal pregunta sin responder. -->
+        <div class="modal fade" id="ModalPreguntaSinContestar" tabindex="-1" role="dialog" aria-labelledby="ModalPreguntaSinContestarTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-white position-relative">
+                <div class="modal-body text-center px-5 py-4">
+                    No has respondido la pregunta, ¿Estás seguro que quieres avanzar? Responde Sí o No.
+                    <div class="d-inline-block w-100">
+                        <button type="button" class="d-inline-block mx-2 btn mt-2 btn-modal-si text-shadow box-shadow" id="botonAceptar">Si</button>
+                        <button type="button" class="d-inline-block mx-2 btn mt-2 btn-modal-no text-shadow box-shadow" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
 {% block extrascript %}
-<script src="{% static 'ggalbas/js/DjangoAjax.js' %}"></script>
-<script src="{% static 'ggalbas/js/diagnostico.js' %}"></script>
+    <script src="{% static 'ggalbas/js/DjangoAjax.js' %}"></script>
+    <script src="{% static 'ggalbas/js/diagnostico.js' %}"></script>
 {% endblock %}

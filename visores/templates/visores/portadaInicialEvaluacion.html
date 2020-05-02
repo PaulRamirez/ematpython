@@ -1,0 +1,54 @@
+{% extends 'visores/base.html' %}
+{% load static %}
+{% block title %} Portada Inicial MT {% endblock %}
+
+{% block body %}
+
+    class="template-modulo border-red d-flex flex-column flex-wrap vertical-center align-items-center" style="background-image: url('{% static 'core/images/fondos/portadaA3.png' %}"
+
+{% endblock %}
+
+{% block content %}
+  <div class="container d-flex flex-column justify-content-center flex-1 py-4">
+        <div class="row">
+
+            <div class="col-12 col-md-7 col-lg-6 text-center text-md-right order-1 order-md-0">
+                 {% if request.session.numero_nivel >= 3 and request.session.numero_nivel <= 5 %}
+                    <img src="{% static 'core/images/personajes/' %}portadaInicialEvaluacion3-5-1.png" alt="" class="img-fluid d-none d-md-block">
+                    <img src="{% static 'core/images/personajes/' %}portadaInicialEvaluacion3-5-2.png" alt="" class="img-fluid d-md-none">
+                {% elif request.session.numero_nivel >= 6 and request.session.numero_nivel <= 8 %}
+                    <img src="{% static 'core/images/personajes/' %}portadaInicialEvaluacion6-8-1.png" alt="" class="img-fluid d-none d-md-block">
+                    <img src="{% static 'core/images/personajes/' %}portadaInicialEvaluacion6-8-2.png" alt="" class="img-fluid d-md-none">
+                {% endif %}
+            </div>
+
+            <div class="col-md-5 col-lg-6 d-flex flex-wrap align-self-center justify-content-center mt-2 mt-md-0">
+                <div class="d-inline-block mb-3 mb-lg-3 bg-white-85 rounded-pill border-2 border-yellow shadow-lg text-left border-blue px-4 py-3">
+                    <h1 class="m-0 h2 color-green title-pill-portada">Vamos a evaluar</h1>
+                </div>
+                <div class="bg-white-90 border-2 box-shadow rounded-box border-blue p-4 portada-inicial-text pb-5 pb-md-4">
+                    <p>Lleg&oacute; el momento de demostrar cu&aacute;nto aprendiste en esta unidad.</p>
+                    <p>Necesitas un {{porcentaje_aprobacion}}%  de logro para aprobarla. Por ello lee con atenci&oacute;n cada pregunta antes de responder.</p>
+                </div>
+                <div class="btn-arrow-right text-center mt-md-3 portada-inicial-btn">
+                    <a href="#" id="botonPortadaInicialEvaluacion" class="d-flex"><div class="flecha-lg-b mx-auto border-0 shadow-lg"></div></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <audio autoplay>
+            <source src="{% static 'core/audios/portadas/MT_A3_portada_inicial.ogg' %}" type="audio/ogg">
+            <source src="{% static 'core/audios/portadas/MT_A3_portada_inicial.mp3' %}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'core/js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'core/js/jquery-ui.js' %}"></script>
+    <script src="{% static 'core/js/popper.min.js' %}" ></script>
+    <script src="{% static 'core/js/bootstrap.min.js' %}" ></script>
+    <script src="{% static 'visores/js/portadaInicialEvaluacion.js' %}"></script>
+{% endblock %}
+

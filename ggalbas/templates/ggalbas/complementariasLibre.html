@@ -1,0 +1,283 @@
+{% extends 'ggalbas/base.html' %}
+{% load static %}
+{% block title %} Complementarias {% endblock %}
+
+{% block bg-imagen %}
+
+    {% get_static_prefix as STATIC_PREFIX %}
+    background-image: url( '{{STATIC_PREFIX}}core/images/fondos/bgUnidad1.png')
+
+{% endblock %}
+
+{% block header %}
+    class="header modulo-info panel-celeste d-md-inline-block text-center py-2 px-3 w-100 shadow-sm"
+{% endblock %}
+
+{% block barra %}
+            <div class="col-6 col-sm-6 mb-2 mb-sm-0 text-left">
+                <div class="nombre-alumno mb-1 font-weight-bold">¡Bienvenid@! <span>{{ request.session.nombres }}</span></div>
+                <div class="row">
+                    <div class="col-12 unidad">{{request.session.nivel}}</div>
+                    <div class="col-12 colegio">{{request.session.rbd}}</div>
+                </div>
+            </div>
+            <div class="col-6 col-sm-6 d-flex align-items-center justify-content-end flex-wrap text-right header-profile">
+                <!-- <a href="#" class="btn mis-logros text-shadow">
+                    Mis Logros
+                </a> -->
+                <a href="{% url 'index' %}" class="btn salir text-shadow">
+                    Salir
+                </a>
+            </div>
+{% endblock %}
+
+{% block unidades %}
+
+   <div class="container-fluid bg-blue py-3">
+       <div class="row">
+            <div class="container d-lg-none">
+                <h5 class="text-white">Unidades</h5>
+            </div>
+            <div class="container">
+                <ul class="list-group px-0 col-xl-10 list-group-horizontal flex-nowrap container-unidades actividades-unidades m-auto justify-content-center">
+                    {% for id_unidad,nombre_unidad in nombreUnidades.items %}
+                       <li id="{{forloop.counter}}" class="col list-group-item p-0 completed" ><a href="#" class="btn py-2 w-100" ><span class="d-none d-lg-inline-block">Unidad</span>&nbsp;{{forloop.counter}}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+       </div>
+   </div>
+
+{% endblock %}
+
+
+{% block barra_complementarias %}
+
+  <div class="bg-white-75 mb-md-3 mb-md-0 p-3 container-fluid">
+        <div class="row">
+            <div class="col-md-8"><h4 class="mb-0 pt-md-1 text-center text-md-left">Actividades Complementarias</h4></div>
+            <div class="col-md-4 text-center text-md-right"><a href="#" class="btn btn-instrucciones">Leer Instrucciones</a></div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+            {% for ordenUnidad, listaContenidos in listaContenidosUnidad.items %}
+
+                <div class="col-12 col-sm-12 col-md-12 col-xl-10 offset-0 offset-sm-0 offset-xl-1 bloqueUnidades" style="display:none;" id="bloqueUnidad_{{ordenUnidad}}">
+                    <div class="bg-white border border-white">
+                        <div class="container">
+
+                            <div class="row">
+                                <div class="col-5 bg-blue text-white p-2">Contenidos</div>
+                                <div class="col-7">
+                                    <div class="row">
+                                        <div class="w-100 bg-blue text-white p-2">Fases</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="container overflow-auto container-overflow-activcompl">
+                                     {% for objContenido in listaContenidos %}
+
+                                    <!-- contenidos -->
+                                    <div class="row">
+                                        <div class="d-flex align-items-center col-5 p-2 border-bottom h6 mb-0">{{objContenido.descripcion}} </div>
+                                        <div class="col-7">
+
+                                            <div class="row">
+                                                {% if primerSetActividades|get_item:objContenido.id_contenido %}
+                                                    <!-- primer set de actividades -->
+                                                    <a class="collapse-tab d-flex w-100 p-2 {{clasePrimerSetActividades|get_item:objContenido.id_contenido}} text-dark hover-noscale pr-5 collapsed" data-toggle="collapse" href="#primerSetAct{{objContenido.id_contenido}}" role="button" aria-expanded="false" aria-controls="primerSetAct{{objContenido.id_contenido}}">
+                                                    {{nombrePrimerSetActividades|get_item:objContenido.id_contenido|default_if_none:'no hay fases'}}
+                                                    </a>
+
+                                                    <div class="collapse w-100 show" id="primerSetAct{{objContenido.id_contenido}}">
+                                                        <div class="card card-body rounded-0 border-0 py-1 px-0">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+
+                                                                    {% for objContenidoFaseActividad in primerSetActividades|get_item:objContenido.id_contenido %}
+                                                                      <div class="col-6 col-sm-4 col-md-3 text-center px-2">
+                                                                        <a href="#" class="border rounded p-1 d-block text-dark btn-widget botonVerActividad"
+                                                                           data-idcontenidofaseact="{{objContenidoFaseActividad.id_contenido_fase_actividad}}"
+                                                                           data-contenido="{{objContenido.descripcion}}"
+                                                                           data-tipoact="{{objContenidoFaseActividad.id_actividad.id_tipo_actividad.nombre_tipo}}"
+                                                                           data-siglas="{{objContenidoFaseActividad.id_actividad.nombre_actividad}}"
+                                                                           data-puntaje="{{puntajeActividad|get_item:objContenidoFaseActividad.id_actividad.id_actividad|default_if_none:''}}"
+                                                                           data-fecha="{{fechaFinActividad|get_item:objContenidoFaseActividad.id_actividad.id_actividad|default_if_none:''}}"
+                                                                           data-intento="{{intentoActividad|get_item:objContenidoFaseActividad.id_actividad.id_actividad|default_if_none:'0'}}">
+                                                                            <div class="container">
+                                                                                <div class="row">
+                                                                                    <span class="col-6 p-0 d-flex align-items-center">
+                                                                                    <img src="{% static 'core/images/objetos/' %}{{objContenidoFaseActividad.id_actividad.nombre_actividad|ultimasSiglas}}.png" title="" class="img-fluid" alt="Icon" >
+                                                                                    </span>
+                                                                                    <span class="col-6 p-0 d-flex align-items-center">{{ puntajeActividad|get_item:objContenidoFaseActividad.id_actividad.id_actividad|default_if_none:" "}}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+                                                                    {% endfor %}
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                 {% endif %}
+
+                                                {% if segundoSetActividades|get_item:objContenido.id_contenido %}
+                                                     <!-- segundo set de actividades -->
+                                                    <a class="collapse-tab d-flex w-100 p-2 {{claseSegundoSetActividades|get_item:objContenido.id_contenido}} text-dark hover-noscale collapsed" data-toggle="collapse" href="#segundoSetAct{{objContenido.id_contenido}}" role="button" aria-expanded="false" aria-controls="segundoSetAct{{objContenido.id_contenido}}">
+                                                    {{nombreSegundoSetActividades|get_item:objContenido.id_contenido|default_if_none:'no hay fases'}}
+                                                    </a>
+
+                                                    <div class="collapse w-100 show" id="segundoSetAct{{objContenido.id_contenido}}">
+                                                        <div class="card card-body rounded-0 border-0 py-1 px-0">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+
+                                                                 {% for objContenidoFaseActividad in segundoSetActividades|get_item:objContenido.id_contenido %}
+
+                                                                    <div class="col-6 col-sm-4 col-md-3 text-center px-2">
+                                                                        <a href="#" class="border rounded p-1 d-block text-dark btn-widget botonVerActividad"
+                                                                           data-idcontenidofaseact="{{objContenidoFaseActividad.id_contenido_fase_actividad}}"
+                                                                           data-intento="{{intentoActividad|get_item:objContenidoFaseActividad.id_actividad.id_actividad|default_if_none:'0'}}"
+                                                                           data-contenido="{{objContenido.descripcion}}"
+                                                                           data-tipoact="{{objContenidoFaseActividad.id_actividad.id_tipo_actividad.nombre_tipo}}"
+                                                                           data-siglas="{{objContenidoFaseActividad.id_actividad.nombre_actividad}}"
+                                                                           data-puntaje="{{puntajeActividad|get_item:objContenidoFaseActividad.id_actividad.id_actividad|default_if_none:''}}"
+                                                                           data-fecha="{{fechaFinActividad|get_item:objContenidoFaseActividad.id_actividad.id_actividad|default_if_none:''}}">
+                                                                            <div class="container">
+                                                                                <div class="row">
+                                                                                    <span class="col-6 p-0 d-flex align-items-center">
+                                                                                    <img src="{% static 'core/images/objetos/' %}{{objContenidoFaseActividad.id_actividad.nombre_actividad|ultimasSiglas}}.png" title="" class="img-fluid" alt="Icon" >
+                                                                                    </span>
+                                                                                    <span class="col-6 p-0 d-flex align-items-center">{{ puntajeActividad|get_item:objContenidoFaseActividad.id_actividad.id_actividad|default_if_none:" "}}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+
+                                                                 {% endfor %}
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- contenidos -->
+
+                                     {% endfor %}
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+{% endblock %}
+
+{% block modales %}
+
+        <!-- modal intrucciones complementarias lire -->
+        <div class="modal fade" id="modalInstruccionesComplLibre" tabindex="-1" role="dialog" aria-labelledby="modalInstruccionesComplLibreTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content bg-white" style="border: 6px solid #2196f3;">
+                    <div class="modal-body pb-5" style="background-image: url({% static 'core/images/fondos/bg-popup-transicion-unidades.png' %}); background-size: contain; background-position: bottom; background-repeat: no-repeat;">
+                        <p align="justify">Aqu&iacute; dispones de un men&uacute; de actividades, las cuales podr&aacute;s recorrer libremente repasando, ejercitando o profundizando las &aacute;reas de tu inter&eacute;s.
+                            Selecciona primero la unidad, luego elije el contenido y fase que quieres, haz clic en la flecha del costado derecho y ver&aacute;s las actividades disponibles en ese &iacute;tem.
+                            Para accede a una actividad debes hacer clic sobre su &iacute;cono, una vez que comienzas una actividad, debes terminarla para acceder a otra.<br><br><br>
+                        </p>
+                        <p class="text-right">
+                            <button data-dismiss="modal" class="bg-yellow rounded-lg text-white py-2 px-3 box-shadow mb-4 text-shadow font-weight-bold">Aceptar</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       <!-- modal informacion de la actividad -->
+        <div class="modal fade" id="modalFormInformativoActividad" tabindex="-1" role="dialog" aria-labelledby="modalFormInformativoActividadTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered " style="max-width: 600px;" role="document">
+            <div class="modal-content bg-white" style="border: 6px solid #2196f3;">
+                <div class="modal-header bg-blue rounded-0 text-white px-3 py-2">
+                    <h5 class="modal-title pt-1" id="tituloModalFormInformativoActividad" style="line-height: normal;"></h5>
+                    <a href="#" data-dismiss="modal" class="btn btn-outline-light" id="botonVolverMenu">Volver al Men&uacute;</a>
+                    <a href="{% url 'index' %}" class="btn btn-outline-light" id="botonSalirMenu">Salir</a>
+                </div>
+                <div class="modal-body">
+                    <form id="formIniciarActividad" name="formIniciarActividad">
+                        {% csrf_token %}
+                        <input type="hidden" name="id_alumno_actividad" id="id_alumno_actividad" value="0">
+                        <input type="hidden" name="id_contenido_fase_actividad" id="id_contenido_fase_actividad" value="">
+                        <input type="hidden" name="intento" id="intento" value="">
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row" style="max-width: 530px;">
+                                    <label for="nombreContenido" class="col-sm-5 col-form-label text-left text-md-right col-form-label-sm pr-0">Contenido:</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control form-control-sm" id="nombreContenido" name="nombreContenido" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <div class="form-group row">
+                                    <label for="nombreTipoAct" class="col-sm-6 col-form-label text-left text-md-right col-form-label-sm pr-0">Tipo de actividad:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-sm" id="nombreTipoAct" name="nombreTipoAct"  disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="siglasAct" class="col-sm-6 col-form-label text-left text-md-right col-form-label-sm pr-0">Sigla de la actividad:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-sm" id="siglasAct" name="siglasAct"  disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="ultimoPuntaje" class="col-sm-6 col-form-label text-left text-md-right col-form-label-sm pr-0">Mi &uacute;ltimo puntaje:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-sm" id="ultimoPuntaje" name="ultimoPuntaje"  disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="fechaUltimoPuntaje" class="col-sm-6 col-form-label text-left text-md-right col-form-label-sm pr-0">¿Cu&aacute;ndo lo obtuve?:</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-sm" id="fechaUltimoPuntaje" name="fechaUltimoPuntaje"  disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 d-flex align-items-center justify-content-center">
+                                <button type="button" class="btn btn-entrar" data-dismiss="modal" id="botonIniciarActividadComp">Entrar</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        </div>
+
+{% endblock %}
+
+{% block extrascript %}
+   <script src="{% static 'ggalbas/js/DjangoAjax.js' %}"></script>
+   <script src="{% static 'ggalbas/js/complementariasLibre.js' %}" ></script>
+{% endblock %}

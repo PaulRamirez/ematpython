@@ -1,0 +1,33 @@
+{% extends 'visorA2Tutor/base.html' %}
+{% load static %}
+
+{% block title %} Tutor  {% endblock %}
+
+{% block body %}
+
+{% endblock %}
+
+{% block content %}
+   <div class="container-fluid d-flex flex-column justify-content-center flex-1 px-0 py-3">
+        <div class="container">
+            <div class="row">
+                 <button type="button" onclick="visorModoAlumno()" class="btn btn-primary">visor Modo Alumno </button>
+                 <button type="button" onclick="visorModoTutor()"class="btn btn-secondary">visor Modo Tutor</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+function visorModoAlumno() {
+  window.open("/visortut/rut/1-9/modulo/EIA2");
+}
+function visorModoTutor() {
+  window.open("/visortut/modo-tutor/rut/2-7/modulo/EIA2");
+}
+</script>
+
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

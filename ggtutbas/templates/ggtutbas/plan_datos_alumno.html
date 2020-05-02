@@ -1,0 +1,442 @@
+{% extends 'ggtutbas/base.html' %}
+{% load static %}
+{% block title %} Datos Alumno {% endblock %}
+
+{% block nombreTutor %} {{fullName}} {% endblock %}
+{% block nombreColegio %} {{nombreColegio}} {% endblock %}
+
+{% block curso %} <div id="codigo-curso" style="display:none;">{{codLista}}</div>{% endblock %}
+
+{% if request.path == 'ggtutbas/datosAlumno' %}
+
+    {% block StyleClass %} active {% endblock %}
+    {% block expanded %}true{% endblock %}
+    {% block collapsed %} {% endblock %}
+    {% block showMenu %} show {% endblock %}
+    {% block alumnoActiva %} active text-black {% endblock %}
+
+{% endif %}
+
+{% block result %} {{variables.menuResultadosCurso}} {% endblock %}
+{% block planOA %} {{variables.menuPlanificacion}} {% endblock %}
+
+{% block titulo %}Planificaci&oacute;n / Datos Alumno {% endblock %}
+
+{% block content %}
+
+ <!-- Begin Page Content -->
+        <div class="">
+
+          <!-- Page Heading -->
+
+
+         <div class="row">
+            <div class="col-lg-12 ">
+
+              <div class="card border-secondary shadow mb-4">
+                <a href="#collapseCard1" class="d-block card-header border-secondary py-3 acordeon-alumno" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCard1">
+                  <h6 class="m-0 font-weight-bold text-secundary ">Edici&oacute;n de datos Alumno</h6>
+                </a>
+                <div class="collapse show" id="collapseCard1">
+                  <div class="card-body text-justify">
+                    En esta secci&oacute;n podr&aacute;s editar el nombre de estudiantes e inscribir a un alumno nuevo.<br><br>
+                    * Recomendamos mantener absoluta privacidad sobre estos datos, cuidando que no se presten para un uso indebido.
+                  </div>
+                </div>
+              </div>
+
+              <div class="card border-secondary shadow mb-4" style="display:{{displayDiferenciado}}">
+                <a  href="#collapseCard2"   class="d-block card-header border-secondary py-3 acordeon-alumno" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCard2">
+                  <h6 class="m-0 font-weight-bold text-secundary">Alumnos en plan diferenciado</h6>
+                </a>
+                <div class="collapse" id="collapseCard2">
+                  <div class="card-body text-justify">
+                      {{variables.textoAlumnoDiferenciado}}<br><br>
+                    Es muy importante considerar los criterios y especificaciones para realizar este cambio <a href="#" data-toggle="modal" data-target="#ModalAlumnoDiferenciado">(ver criterios y especificaciones).</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card border-secondary shadow mb-4" style="display:{{displayAutonomo}}">
+                <a href="#collapseCard3"   class="d-block card-header border-secondary py-3 acordeon-alumno" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCard3">
+                  <h6 class="m-0 font-weight-bold text-secundary">Alumnos Aut&oacute;nomos</h6>
+                </a>
+                <div class="collapse " id="collapseCard3">
+                  <div class="card-body text-justify">
+                    {{variables.textoAlumnoAutonomo}}<br><br>
+                    Es importante que leas con atenci&oacute;n los criterios de este atributo, ya que una vez otorgado no se puede modificar <a href="#" data-toggle="modal" data-target="#ModalAlumnoAutonomo">(ver criterios y especificaciones)</a>.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+         </div>
+
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                       <div class="row">
+
+                        <div class="col-xl-3 mt-3">
+                        <a href="#" class="btn btn-info  btn-icon-split"  data-toggle="modal" data-target="#ModalCodigoLista">
+                                <span class="icon text-white-50">
+                                  <i class="fas fa-search-plus"></i>
+                                </span>
+                                <span class="text">Ver c&oacute;digo lista</span>
+                              </a>
+                        </div>
+
+                      <!--  <div class="col-xl-4 col-md-6 mb-4 text-center">
+                        <a href="{% url 'credenciales' %}" class="btn btn-primary btn-icon-split" target="_blank">
+                                <span class="icon text-white-50">
+                                  <i class="fas fa-print"></i>
+                                </span>
+                                <span class="text" id="imprime-credencial">Imprimir credenciales alumnos</span>
+                              </a>
+                        </div>-->
+
+                        <div class="col-xl-4 mt-3">
+                          <a href="#" class="btn btn-info  btn-icon-split"   data-toggle="modal" data-target="#ModalNuevoAlumno">
+                                <span class="icon text-white-50">
+                                  <i class="fas fa-user-plus"></i>
+                                </span>
+                                <span class="text">Inscribir alumno nuevo</span>
+                              </a>
+                        </div>
+                      </div>
+            </div>
+<div class="card shadow mb-4">
+   <div class="table-responsive">
+       <div class="alert alert-success" role="alert" id="divMensaje" style="display: none;"></div>
+      <div class="card-body" >
+         <table class="table table-bordered activa-tabla" id="tablaAlumno" width="100%" cellspacing="0">
+            <thead>
+            <tr class="header-table">
+                                      <th>N°</th>
+                      <th>Apellidos y Nombres</th>
+                      <th>{{variables.rut}}</th>
+                      <th>Password</th>
+                      <th>Respuesta secreta</th>
+                        {% if columnaDiferenciada == 1 %} <th>Diferenciado</th> {% endif %}
+                      {% if columnaAutonomo == 1 %}<th>Aut&oacute;nomo</th> {% endif %}
+                      <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+         </table>
+      </div>
+   </div>
+</div>
+          </div>
+
+        </div>
+
+{% endblock %}
+
+
+   {% block modales %}
+
+   <!-- Modal -->
+<div class="modal fade" id="ModalAlumnoDiferenciado" tabindex="-1" role="dialog" aria-labelledby="ModalAlumnoDiferenciadoTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalAlumnoDiferenciadoTitle">Criterios y especificaciones de alumnos en plan diferenciado</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-justify">
+          <p class="diferenciado">
+              El objetivo de este complemento es ofrecer al 30% de alumnos con mayores dificultades de aprendizaje, un programa que responda verdaderamente a sus necesidades, incorporando a estos alumnos al trabajo que ofrece EMAT.
+          </p>
+          <p class="diferenciado">
+              Criterios para que un alumno sea candidato a  EMAT diferenciado:
+          </p>
+          <p class="diferenciado">
+              1) Que tenga un porcentaje de logro inferior a 30% en su diagn&oacute;stico.
+              <br>
+              2) Que haya realizado por tercera vez la evaluaci&oacute;n en más de un contenido para poder avanzar en el programa.
+              <br>
+              3) Que tenga un promedio insuficiente en el ramo de matem&aacute;ticas.
+          </p>
+          <p class="diferenciado">
+            Al otorgarle el plan diferenciado a un alumno que ya inicio actividades, su plan cambiar&aacute; cuando termine la actividad en curso. Por otra parte, los puntaje de las pruebas anuales se recalculan, considerando s&oacute;lo los ejercicios de conocimiento y aplicaci&oacute;n.
+          </p>
+          <p class="diferenciado">
+             Dependiendo de las necesidades del estudiante, puede volver al plan regular de trabajo en EMAT.
+          </p>
+          <p class="diferenciado">
+              Recomendamos tomar estas decisiones con la orientación del especialista del establecimiento.
+          </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+   <!-- Modal -->
+<div class="modal fade" id="ModalAlumnoAutonomo" tabindex="-1" role="dialog" aria-labelledby="ModalAlumnoAutonomoTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalAlumnoAutonomoTitle">Criterios y especificaciones de alumnos aut&oacute;nomos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      El objetivo de este atributo es permitir que los alumnos m&aacute;s aventajados puedan avanzar sin restricci&oacute;n por todas las unidades del programa.<br>
+      {{variables.popAutonomo}}<br><br>
+      Una vez que le asigne esta modalidad de trabajo a un estudiante, esta es irreversible. Por ello es muy importante que el estudiante cumpla con los criterios y esta decisi&oacute;n este proyectada en el tiempo.<br><br>
+      Criterios para que un alumno sea candidato a  trabajo aut&oacute;nomo:<br><br>
+      1) Que tenga al menos promedio {{variables.promedio}} en el ramo de matem&aacute;ticas.<br>
+      2) Que  tenga avance mensual mayor o igual que 10.<br>
+      3) Que tenga un rendimiento de 80%.<br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+   <!-- Modal -->
+<div class="modal fade" id="ModalCodigoLista" tabindex="-1" role="dialog" aria-labelledby="ModalCodigoListaTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalCodigoListaTitle">C&oacute;digo lista</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+<table class="table table-hover table-bordered">
+  <tbody>
+    <tr>
+      <th scope="row">{{variables.curso}}</th>
+      <td>{{nivel}} - {{letra}}</td>
+    </tr>
+    <tr>
+      <th scope="row">C&oacute;digo Lista</th>
+      <td>{{codLista}}</td>
+    </tr>
+  </tbody>
+</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+   <!-- Modal -->
+<div class="modal fade" id="ModalPassword" tabindex="-1" role="dialog" aria-labelledby="ModalPasswordTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalPasswordTitle">Password alumno nuevo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            Inscripci&oacute;n realizada con &eacute;xito. Ahora el alumno puede ingresar al programa con su {{variables.rut}} y el siguiente password:<br><br>
+            <h3 id="passwordNuevo" style="text-align: center;"></h3>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+   <!-- Modal -->
+<div class="modal fade" id="ModalConfirma" tabindex="-1" role="dialog" aria-labelledby="ModalConfirmaTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalConfirmaTitle">&nbsp;</h5>
+        <button type="button" class="close botonCancelar"  aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+             <form>
+              <div class="form-group row">
+                <label class="col-sm-12 col-form-label" id="textoTerminoCondiciones"></label>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-2">&nbsp;</div>
+                <div class="col-sm-10">
+                  <div class="custom-control custom-checkbox small">
+                    <input class="custom-control-input" type="checkbox" id="aceptaCondiciones" name="aceptaCondiciones">
+                    <label class="custom-control-label" for="aceptaCondiciones">
+                      Leí los criterios y especificaciones
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+      </div>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-info botonCancelar" >Cancelar</button>
+         <button type="button" class="btn btn-success" id="botonConfirma" disabled="disabled">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- Modal -->
+<div class="modal fade" id="ModalNuevoAlumno" tabindex="-1" role="dialog" aria-labelledby="ModalNuevoAlumnoTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalNuevoAlumnoTitle">Inscripci&oacute;n alumno nuevo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+           <form autocomplete="off" id="formNuevoAlumno" >
+                <div class="form-group row">
+                  <label for="rut" class="col-sm-4 col-form-label">{{variables.rut}}</label>
+                  <div class="col">
+                    <input type="text" class="form-control input-number" id="rut" name="rut" placeholder="" maxlength="9">
+                      <div class="error_formulario" id="errorRutRegistrar"></div>
+                  </div>
+                  <div class="col-2">
+                    <input type="text" class="form-control" id="validador" name="validador" placeholder="" maxlength="1">
+                  </div>
+                </div>
+                  <div class="form-group row">
+                  <label for="nombre" class="col-sm-4 col-form-label">Nombre <br> (2 m&aacute;ximo)</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="" maxlength="30">
+                      <div class="error_formulario" id="errorNombreRegistrar"></div>
+                  </div>
+                </div>
+                   <div class="form-group row">
+                  <label for="apellido" class="col-sm-4 col-form-label">Apellido</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="apellido" name="apellido" placeholder="" maxlength="50">
+                    <div class="error_formulario" id="errorApellidoRegistrar"></div>
+                  </div>
+                </div>
+                   <div class="form-group row">
+                  <label for="id_pregunta" class="col-sm-4 col-form-label">Pregunta secreta</label>
+                  <div class="col-sm-8">
+                    <select class="form-control browser-default custom-select" id="id_preguntas" name="id_pregunta">
+                      <option value="">Seleccione pregunta</option>
+                        <option value="1">Nombre de tu apoderado</option>
+                        <option value="2">Nombre de tu mascota</option>
+                        <option value="3">Color favorito</option>
+
+                    </select>
+                   <div class="error_formulario" id="errorPreguntaRegistrar"></div>
+                  </div>
+                </div>
+                   <div class="form-group row">
+                  <label for="respuesta" class="col-sm-4 col-form-label">Respuesta secreta</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="respuesta" name="respuesta" placeholder="">
+                    <div class="error_formulario" id="errorRespuestaRegistrar"></div>
+                  </div>
+                </div>
+               <input type="hidden" value="{{variables.pais}}" id="pais">
+          </form>
+      </div>
+      <div class="error_formulario" id="errorRegistrarAlumno"></div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success" id="botonAgregarAlumno">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Modal -->
+<div class="modal fade" id="ModalEditarAlumno" tabindex="-1" role="dialog" aria-labelledby="ModalEditarAlumnoTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalEditarAlumnoTitle">Editar datos alumno</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+             <form autocomplete="off" id="formEditarAlumno" >
+                 <input type="hidden" name="rutAlumno" id="rutAlumno" value="">
+              <div class="form-group row">
+                <label for="nombreAlumno" class="col-sm-4 col-form-label">Nombres (m&aacute;ximo 2)</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="nombreAlumno" name="nombreAlumno" placeholder="" maxlength="30">
+                      <div class="error_formulario" id="errorNombreEditar"></div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="apellidoAlumno" class="col-sm-4 col-form-label">Apellidos</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="apellidoAlumno" name="apellidoAlumno" placeholder="" maxlength="50">
+                      <div class="error_formulario" id="errorApellidoEditar"></div>
+                </div>
+              </div>
+                 {% if columnaDiferenciada == 1 %}
+              <div class="form-group row">
+                <div class="col-sm-4">Diferenciado</div>
+                <div class="col-sm-8">
+                  <div class="custom-control custom-checkbox small">
+                     <input type="checkbox" class="custom-control-input" id="id_producto" name="id_producto" value="3">
+                     <label class="custom-control-label" for="id_producto">&nbsp;</label>
+                    </div>
+                </div>
+              </div>
+                 {% endif %}
+                {% if columnaAutonomo == 1 %}
+               <div class="form-group row">
+                <div class="col-sm-4">Aut&oacute;nomo</div>
+                <div class="col-sm-8">
+                  <div class="custom-control custom-checkbox small">
+                     <input type="checkbox" class="custom-control-input" id="autonomo" name="autonomo" value="1">
+                     <label class="custom-control-label" for="autonomo">&nbsp;</label>
+                    </div>
+                </div>
+              </div>
+                 {% endif %}
+
+            </form>
+      </div>
+      <div class="error_formulario" id="errorEditarAlumno"></div>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+         <button type="button" class="btn btn-success" id="botonEditarAlumno">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block extrascript %}
+  <script src="{% static 'ggtutbas/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'ggtutbas/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'ggalbas/js/DjangoAjax.js' %}"></script>
+  <script src="{% static 'ggtutbas/js/datosAlumno.js' %}"></script>
+  <script src="{% static 'ggtutbas/js/principal.js' %}"></script>
+{% endblock %}
+
+{% block extracss %}
+ <link rel="stylesheet" href="{% static 'ggtutbas/vendor/datatables/dataTables.bootstrap4.min.css' %}">
+{% endblock %}

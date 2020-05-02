@@ -1,0 +1,236 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %} Registro Tutor {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-form-54 col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                <div class="box-container rounded-box shadow-sm position-relative">
+                    <header class="bg-gradient-yellow rounded-header libro-alumno basico text-white text-center">
+                        <div class="w-100">
+                            <img src="{% static 'core/images/branding/logo.png' %}" class="img-fluid header-logo my-3" width="200" alt="eMat">
+                        </div>
+                        <div class="w-100">
+                            <h1 class="h3 py-2 mb-0 text-shadow">Inscripción Tutor Nuevo</h1>
+                        </div>
+                    </header>
+
+                    <div class="col-md-10 offset-md-1 mb-2">
+                        <div class="text-right my-2 mb-md-3">
+                            <a href="{% url 'index-tutor' %}">
+                                <button type="button" class="btn btn-back back"><span><img src="{% static 'core/images/objetos/triangle-curved.svg' %}" class="mr-1" width="18"></span> Volver</button>
+                            </a>
+                        </div>
+                        <form class="form-tutor-nuevo" autocomplete="off">
+                            <div class="form-group row mb-2">
+                                <div class="col-sm-3 px-md-0 text-sm-right">
+                                    <label for="rut" class="col-form-label">{{variables.rut}}:</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <input type="text" class="form-control input-number" id="rut" placeholder="Ejemplo: 11111111" maxlength="9" autofocus>
+                                        </div>
+
+                                        <div class="col-1 px-0 text-center">
+                                            <label for="validador" class="col-form-label px-md-0 text-center">-</label>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <input type="text" class="form-control p-0 text-center" id="validador" placeholder="1" maxlength="1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-2">
+                                <div class="col-sm-3 px-md-0 text-sm-right">
+                                    <label for="codColegio" class="col-form-label ">Cód. Colegio:
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="text" class="form-control input-number" id="codColegio">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <div class="col-sm-3 px-md-0 text-sm-right">
+                                    <label for="codUsuario" class="col-form-label ">Cód. Usuario:
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="text" class="form-control" id="codUsuario">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-2">
+                                <div class="col-sm-3 px-md-0 text-sm-right">
+                                    <label for="email" class="col-form-label">E-mail:</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="text" class="form-control" id="email">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-2">
+                                <div class="col-sm-3 px-md-0 text-sm-right">
+                                    <label for="TutorNombres" class="col-form-label">Nombres:</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="text" class="form-control" id="TutorNombres">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-2">
+                                <div class="col-sm-3 px-md-0 text-sm-right">
+                                    <label for="TutorApellidos" class="col-form-label">Apellidos:</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="text" class="form-control" id="TutorApellidos">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <div class="col-sm-3 px-md-0 text-sm-right">
+                                    <label for="telefono" class="col-form-label">Celular <br> (o Teléfono):</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="text" class="form-control input-number" id="telefono" maxlength="11">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-2 password-group">
+                                <div class="col-sm-3 px-md-0 text-sm-right">
+                                    <label for="TutorPassword" class="col-form-label">Password:</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-6 mb-2 mb-md-0 ">
+                                            <input type="password" size="35" class="form-control" id="TutorPassword" placeholder="Ingrese Password">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="password" class="form-control" id="TutorPasswordRep" placeholder="Repita Password">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-2">
+                                <div class="col-sm-3 px-md-0 text-sm-right">
+                                    <label for="pregunta" class="col-form-label">Pregunta de Seguridad:</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12">
+                                            <select id="pregunta" class="custom-select form-control">
+                                                <option value="" selected="">...</option>
+                                                {% for pregunta in preguntas %}
+                                                    <option value="{{pregunta.id_pregunta}}">{{pregunta.pregunta}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-3">
+                                <div class="col-sm-3 px-md-0 text-sm-right">
+                                    <label for="respuesta" class="col-form-label">Respuesta:</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="text" class="form-control" id="respuesta" maxlength="50">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="pais" value="{{variables.pais}}">
+
+                            <div class="col-sm-9 offset-sm-3">
+                                <div class="row">
+                                    <button type="button" id="registro" class="btn btn-primary btn-lg btn-principal btn-block mb-3">Registrarme</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <footer class="bg-basica rounded-footer text-white text-shadow text-center py-1 small font-weight-bold">EMAT | BÁSICA</footer>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+    {% block modales %}
+       <!-- Modal Registro -->
+    <div id="modalOk" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+        <!-- Contenido del modal -->
+            <div class="modal-content position-relative">
+            <!--<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>-->
+                <div class="modal-body text-center px-5 py-4">
+                    <div class="d-none d-sm-flex position-absolute" style="top: -50px;right: -50px;"><img src="{% static 'core/images/objetos/check.png' %}" alt="check"></div>
+                    <div class="textModal">
+                        <div>Su inscripción se ha</div>
+                        <div>realizado con éxito,</div>
+                        <div>presione Aceptar y estará</div>
+                        <div>listo para acceder al</div>
+                        <div>programa usando</div>
+                        <div class="azul">el código colegio, rut y password</div>
+                    </div>
+                    <div class="d-inline-block">
+                        <button id="aceptar" type="button" class="btn btn-primary btn-lg btn-principal btn-block mb-3 cerrar" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+               <!-- <div class="modal-footer"></div>-->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Error -->
+    <div id="modalError" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content position-relative">
+                <!--<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>-->
+                <div class="modal-body text-center px-5 py-4">
+                 <!--   <div class="d-none d-sm-flex position-absolute" style="top: -50px;right: -50px; width: 17%"><img src="{% static 'core/images/objetos/cancel.png' %}" alt="cancelar"></div> -->
+                    <div id="textoErrorModal" class="textModal"></div>
+                    <div class="d-inline-block">
+                        <button type="button" class="btn btn-primary btn-lg btn-principal btn-block mb-3 cerrar" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+                <!--<div class="modal-footer"></div>-->
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extrascript %}
+    <script src="{% static 'ggalbas/js/DjangoAjax.js' %}"></script>
+    <script src="{% static 'ggtutbas/js/nuevoTutor.js' %}"></script>
+{% endblock %}

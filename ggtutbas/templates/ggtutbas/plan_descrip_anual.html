@@ -1,0 +1,37 @@
+{% extends 'ggtutbas/base.html' %}
+{% load static %}
+{% block title %} Descripcion Anual {% endblock %}
+{% block nombreTutor %} {{fullName}} {% endblock %}
+{% block nombreColegio %} {{nombreColegio}} {% endblock %}
+{% if request.path == 'ggtutbas/descripcionAnual' %}
+
+    {% block StyleClass %} active {% endblock %}
+    {% block expanded %}true{% endblock %}
+    {% block collapsed %} {% endblock %}
+    {% block showMenu %} show {% endblock %}
+    {% block anualActiva %} active text-black {% endblock %}
+
+{% endif %}
+
+{% block result %} {{variables.menuResultadosCurso}} {% endblock %}
+{% block planOA %} {{variables.menuPlanificacion}} {% endblock %}
+
+{% block titulo %}Planificación / Descripción de evaluaciones anuales {% endblock %}
+
+{% block content %}
+<div style="height:100vh;">
+<object class="pdf" data="{% static 'ggtutbas/pdf/evaluaciones_anuales/'%}{{nivel}}{{variables.cursoPdf}}.pdf" type="application/pdf" width="100%" height="83%">
+    <p>Este navegador no admite archivos PDF. Descargue el PDF para verlo: <a href="{% static 'ggtutbas/pdf/evaluaciones_anuales/'%}{{nivel}}{{variables.cursoPdf}}.pdf">Descargar PDF</a>.</p>
+    <embed src="{% static 'ggtutbas/pdf/evaluaciones_anuales/'%}{{nivel}}{{variables.cursoPdf}}.pdf" type="application/pdf"></embed>
+</object>
+</div>
+{% endblock %}
+
+{% block curso %} <div id="codigo-curso" style="display:none;">{{codLista}}</div>{% endblock %}
+
+
+
+{% block extrascript %}
+    <script src="{% static 'ggalbas/js/DjangoAjax.js' %}"></script>
+    <script src="{% static 'ggtutbas/js/principal.js' %}"></script>
+{% endblock %}

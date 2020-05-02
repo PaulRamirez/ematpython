@@ -1,0 +1,122 @@
+{% extends 'ggtutbas/base.html' %}
+{% load static %}
+{% block title %} Orden Contenido {% endblock %}
+{% block nombreTutor %} {{fullName}} {% endblock %}
+{% block nombreColegio %} {{nombreColegio}} {% endblock %}
+
+{% if request.path == 'ggtutbas/ordenContenido/editarPosicion' %}
+
+    {% block StyleClass %} active {% endblock %}
+    {% block expanded %}true{% endblock %}
+    {% block collapsed %} {% endblock %}
+    {% block showMenu %} show {% endblock %}
+    {% block ordenActiva %} active text-black {% endblock %}
+
+{% endif %}
+
+{% block result %} {{variables.menuResultadosCurso}} {% endblock %}
+{% block planOA %} {{variables.menuPlanificacion}} {% endblock %}
+
+{% block titulo %}Organización de contenidos{% endblock %}
+
+
+{% block content %}
+<div>
+    <div class="orden-container">
+        <div class="orden-descripcion">
+            <p>Puedes arrastrar los contenidos de la «organización actual» reposicionándolos dentro de una misma unidad o en otra.
+</p>
+            <p>Sólo podrás arrastrar los contenidos si ningún estudiante ha iniciado actividades.
+</p>
+            <p>Cada unidad debe tener como mínimo un contenidos y como máximo cinco.
+</p>
+            <div class="pb-3">
+                <a href="{% url 'ordenContenido' %}">
+                    <input type="button" id="cancela-orden" class="btn btn-info" value="Cancelar">
+                </a>
+
+                <input type="button" id="guarda-orden" class="btn btn-success " value="Guardar">
+
+            </div>
+
+        </div>
+        <div class="col-md-7 table-responsive pb-3">
+        <table class="tabla-orden table table-bordered activa-tabla" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Unidad</th>
+                <th>Organización</th>
+            </tr>
+        </thead>
+        {% regroup contUnidades by id_unidad as lista_unidades %}
+        <tbody>
+        {% for id_unidad in lista_unidades %}
+        <tr>
+            <td class="celda-center">{{forloop.counter}}</td>
+
+                <td id="nombre_contenido" class="contenidos celda-left" data-algo="{{id_unidad.grouper}}">
+                {% for contenido in id_unidad.list %}
+                    <div data-unidad="{{contenido.id_unidad}}" id="item_{{ contenido.id_contenido }}" data-contenido="{{contenido.id_contenido}}" data-position="{{contenido.orden}}" class="contenidos celda-edit {{contenido.class}}" >{{ contenido.descripcion }}</div>
+            {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+
+
+        </tbody>
+    </table>
+    </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block modales %}
+<!-- Modal Error -->
+  <div class="modal fade" id="modalError" tabindex="-1" role="dialog" aria-labelledby="textoErrorModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+       <div class="modal-header">
+          <h5 class="modal-title" id="textoErrorModal"></h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="button" data-dismiss="modal">Volver</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- end Modal Error -->
+
+<!-- Modal Ok -->
+    <div id="modalOk" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content position-relative">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="textoOkModal"></h5>
+                </div>
+               <div class="modal-footer">
+                   <div class="d-inline-block">
+                        <button id="aceptar" type="button" class="btn btn-primary btn-lg btn-principal btn-block mb-3 cerrar" data-dismiss="modal">Aceptar</button>
+                    </div>
+
+               </div>
+            </div>
+        </div>
+    </div>
+
+<!-- end Modal ok -->
+
+{% endblock %}
+
+{% block curso %} <div id="codigo-curso" style="display:none;">{{codLista}}</div>{% endblock %}
+{% block extrascript %}
+
+    <script src="{% static 'ggtutbas/js/principal.js' %}"></script>
+{% endblock %}

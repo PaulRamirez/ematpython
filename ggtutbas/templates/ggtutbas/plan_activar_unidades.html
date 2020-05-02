@@ -1,0 +1,146 @@
+{% extends 'ggtutbas/base.html' %}
+{% load static %}
+{% block title %} Activar Unidades {% endblock %}
+
+{% block nombreTutor %} {{fullName}} {% endblock %}
+{% block nombreColegio %} {{nombreColegio}} {% endblock %}
+{% block curso %} <div id="codigo-curso" style="display:none;">{{codLista}}</div>{% endblock %}
+
+{% if request.path == 'ggtutbas/activarUnidades' %}
+
+    {% block StyleClass %} active {% endblock %}
+    {% block expanded %}true{% endblock %}
+    {% block collapsed %} {% endblock %}
+    {% block showMenu %} show {% endblock %}
+    {% block UnidadActiva %} active text-black {% endblock %}
+
+{% endif %}
+
+{% block result %} {{variables.menuResultadosCurso}} {% endblock %}
+{% block planOA %} {{variables.menuPlanificacion}} {% endblock %}
+{% block titulo %}Planificación / Activar Unidades {% endblock %}
+
+
+{% block content %}
+<div class="activar-unidades">
+    <p>Para trabajar los contenidos de aprendizaje acorde a tu planificación, EMAT te permite activar una a una las unidades, de modo que puedas controlar el avance de los estudiantes de acuerdo a tu planificación de clases, o bien, activar todas las unidades de una vez para que cada alumno avance a su ritmo paralelamente al trabajo en el aula.</p>
+    <p>{{parrafo}} <a href="" data-toggle="modal" data-target="#instructivoModal"><span id="instructivo">{{modal}}</span></a><br>{{contParrafo}}</p>
+    <p>Si quieres cambiar de modalidad para activar todas las unidades presiona el botón “{{modalidad}}”.</p>
+    <p>
+        <div class="alert alert-warning alert-dismissible fade show text-justify" role="alert">
+  {{variables.activarAlert}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    </div>
+
+    </p>
+    <div class="boton-activar">
+        <input type="button" class="btn btn-info" value="{{modalidad}}" data-toggle="modal" data-target="#cambiaActivacion">
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="tabla table-bordered activa-tabla celda-center tbl-datos" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Unidad</th>
+                <th>Contenido</th>
+                <th>{{variables.oa1}}<br>{{variables.oa2}}</th>
+               <!-- <th>Distribución (%) <i class="fas fa-info-circle" id="information"></i></th>-->
+                <th>Activar unidad</th>
+                <th>Fecha <br> Activación</th>
+            </tr>
+        </thead>
+        {% regroup contenidoUnidades by id_unidad as lista_unidades %}
+        <tbody>
+        {% for id_unidad in lista_unidades %}
+        <tr>
+            <td class="celda-center">{{forloop.counter}}</td>
+            <td id="" class="celda-left">
+                {% for contenido in id_unidad.list %}
+                <div data-unidad="" data-contenido="" data-position="" class="celda-orden" >{{ contenido.id_contenido.descripcion}}</div>
+            {% endfor %}
+            </td>
+            <td>
+                {% for objetivo in id_unidad.list %}
+                 <div data-unidad="" data-contenido="" data-position="" class="celda-orden" >{{objetivo.id_contenido.objetivos_aprendizaje}}</div>
+                {% endfor %}
+            </td>
+           <!-- <td>
+                {% for distribucion in id_unidad.list %}
+                <div class="celda-orden" data-id="{{distribucion.id_contenido_unidad}}" id="{{distribucion.id_contenido_unidad}}">ver</div>
+                {% endfor %}
+            </td>-->
+            <td class="celda-center">
+                {% if id_unidad.list.0.activo == 1 %}
+                Activada
+                {% else %}
+                <a href="#" class="unidad-por-activar disable" data-item="{{id_unidad.list.0.id_contenido_unidad}}">Activar</a>
+
+                {% endif %}
+            </td>
+            <td>{{id_unidad.list.0.fecha_modificacion|date:'d/m/Y'}}</td>
+        </tr>
+        {% endfor %}
+
+
+        </tbody>
+    </table>
+
+        </div>
+
+{% endblock %}
+
+{% block modales %}
+  <div class="modal fade" id="instructivoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalLabel">Instructivo activación de unidades una a una</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p>Con esta modalidad puedes activar una a una, consecutivamente, las unidades de aprendizaje del plan de trabajo, controlando así  el avance de los estudiantes de acuerdo a tu planificación de clases.</p>
+            <p>La primera unidad se encuentra activada, de modo que los estudiantes no tendrán impedimentos para avanzar en su plan. Para habilitar las unidades siguientes, cada unidad debe ser activada consecutivamente, presionando el botón “activar” ubicado en la columna “activar unidad”.</p>
+            <p>Si los alumnos terminan una unidad antes que actives la unidad siguiente, ingresarán a fase complementarias de la unidad,  a la espera de que habilites una nueva.  Una vez activada, los alumnos deberán terminar una actividad en curso, y luego  retomarán su plan de trabajo.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-info" type="button" data-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="cambiaActivacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{modalidad}}</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body text-justify">{{mensajeActivacion}}</div>
+        <div class="modal-footer">
+            <button class="btn btn btn-info" type="button" data-dismiss="modal">Cancelar</button>
+            <button class="btn btn-success" type="button" id="cambiaActiva" data-activa="{{tipo}}">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+
+{% block extrascript %}
+  <script src="{% static 'ggtutbas/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'ggtutbas/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'ggalbas/js/DjangoAjax.js' %}"></script>
+  <script src="{% static 'ggtutbas/js/principal.js' %}"></script>
+{% endblock %}
+
+{% block extracss %}
+ <link rel="stylesheet" href="{% static 'ggtutbas/vendor/datatables/dataTables.bootstrap4.min.css' %}">
+{% endblock %}

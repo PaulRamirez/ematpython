@@ -1,0 +1,86 @@
+{% extends 'visores/base.html' %}
+{% load static %}
+{% block title %} Portada Final MT {% endblock %}
+
+{% block bg-imagen %}
+
+{% endblock %}
+
+{% block body %}
+
+    class="template-modulo border-red d-flex flex-column flex-wrap vertical-center align-items-center" style="background-image: url('{% static 'core/images/fondos/portadaA5.png' %}'); background-position-x: left!important;"
+
+{% endblock %}
+
+{% block content %}
+   <div class="container d-flex flex-column justify-content-center flex-1 py-4">
+        <div class="row">
+            <div class="col-12 col-md-8 col-lg-6 offset-lg-2">
+                <div class="box-container final-meta-container rounded-box shadow-sm position-relative">
+                    <div class="container py-4 py-md-5" style="background-color: #fffab9">
+                        <form class="col-md-10 offset-md-1">
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label for="final-nombrealumno" class="col-form-label text-brown">Nombre Alumno(a):
+                                    </label>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="field-box">{{request.session.nombres}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label for="final-repaso" class="col-form-label text-brown">Repaso:</label>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="field-box">{{nombre_actividad}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-3 col-md-4">
+                                    <label for="final-nivel-escolar" class=" col-form-label text-brown">Puntaje:</label>
+                                </div>
+                                <div class="col-6 col-md-8">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="text" class="form-control font-weight-bold text-center" id="final-nivel-escolar"value="{{puntaje}}%" disabled style="font-size:1.5em;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="col-md-4 col-lg-2 d-flex align-items-center justify-content-center mt-2 mt-md-0">
+                <div class="btn-arrow-right text-center">
+                    <a href="#" id="botonPortadaFinalRepaso" class="d-flex"><div class="flecha-lg-b mx-auto border-0 shadow-lg"></div></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'core/js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'core/js/jquery-ui.js' %}"></script>
+    <script src="{% static 'core/js/popper.min.js' %}" ></script>
+    <script src="{% static 'core/js/bootstrap.min.js' %}" ></script>
+    <script src="{% static 'visores/js/DjangoAjax.js' %}"></script>
+    <script src="{% static 'visores/js/portadaFinalRepaso.js' %}"></script>
+{% endblock %}

@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+var pais= $('#pais').val().trim();
 
  $('#recuperar-password').attr("disabled", true);
 
@@ -14,16 +15,28 @@ $( document ).ready(function() {
         e.preventDefault();
         e.stopImmediatePropagation();
         var rutCompleto = $('#rut').val()+'-'+$('#validador').val();
+
         $('#errorRut').html('').fadeOut('fast');
         $('#errorRespuesta').html('').fadeOut('fast');
         $('#box-password-recuperada').fadeOut('fast');
         $('#forgot-password').html('');
 
           if ($('#rut').val().trim()=="" || $('#validador').val().trim()==""){
+                if (pais=='cl'){
                 $('#errorRespuesta').html('<span>rut o validador vacios</span>').fadeIn('fast');
+                }
+                else{
+                $('#errorRespuesta').html('<span>Id usuario vacio</span>').fadeIn('fast');
+                }
           }
           else  if (Fn.validaRut(rutCompleto) == false){
+
+            if (pais=='cl'){
              $('#errorRut').html('<span>Debe ingresar un Rut válido</span>').fadeIn('fast');
+             }
+                else{
+                $('#errorRut').html('<span>Debe ingresar un Id usuario válido</span>').fadeIn('fast');
+             }
          }
          else if($('#respuesta-secreta').val().trim()==""){
               $('#errorRespuesta').html('<span>Debe ingresar una respuesta</span>').fadeIn('fast');
@@ -106,7 +119,12 @@ function verificaRut(){
             console.log('rut o validador vacios');
       }
       else  if (Fn.validaRut(rutCompleto) == false){
+        if (pais=='cl'){
          $('#errorRut').html('<span>Debe ingresar un Rut válido</span>').fadeIn('fast');
+         }
+         else{
+         $('#errorRut').html('<span>Debe ingresar un Id usuario válido</span>').fadeIn('fast');
+         }
      }
       else {
               cargaAnimacion();
@@ -129,7 +147,12 @@ function verificaRut(){
                   		$('#respuesta-secreta').val('');
                   	}
                   	else{
+                  	if (pais=='cl'){
                   		$('#errorRut').html('<span>Rut no se encuentra registrado</span>').fadeIn('fast');
+                  		}
+                  	else{
+                  	$('#errorRut').html('<span>Id usuario no se encuentra registrado</span>').fadeIn('fast');
+                  	}
                   	}
                   },
                   error: function(){

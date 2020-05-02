@@ -1,0 +1,48 @@
+{% extends 'visores/base.html' %}
+{% load static %}
+{% block title %} Portada Inicial MT {% endblock %}
+
+{% block body %}
+
+    class="template-modulo border-red d-flex flex-column flex-wrap vertical-center align-items-center" style="background-image: url('{% static 'core/images/fondos/fondoMeta.png' %}');  background-position-y: top!important;"
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="container d-flex flex-column justify-content-center flex-1 py-4">
+        <div class="row">
+            <div class="col-md-12 text-center text-md-left mb-5">
+                <img src="images/objetos/Cartel.png" alt="" class="img-fluid">
+            </div>
+            <div class="col-md-4 text-center">
+                <a href="#" class="btn mb-3">
+                <img src="{% static 'core/images/personajes/' %}Coni-3-5a.png" alt="" class="img-fluid d-none d-md-block">
+                <img src="{% static 'core/images/personajes/' %}Coni-3-5b.png" alt="" class="img-fluid d-md-none">
+                </a>
+            </div>
+            <div class="col-md-4 text-center">
+                <a href="#" class="btn mb-3">
+                <img src="{% static 'core/images/personajes/' %}Leo-3-5a.png" alt="" class="img-fluid d-none d-md-block">
+                <img src="{% static 'core/images/personajes/' %}Leo-3-5b.png" alt="" class="img-fluid d-md-none">
+                </a>
+            </div>
+            <div class="col-md-4 text-center">
+                <a href="#" class="btn">
+                <img src="{% static 'core/images/personajes/' %}Caco-3-5a.png" alt="" class="img-fluid d-none d-md-block">
+                <img src="{% static 'core/images/personajes/' %}Caco-3-5b.png" alt="" class="img-fluid d-md-none">
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'core/js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'core/js/jquery-ui.js' %}"></script>
+    <script src="{% static 'core/js/popper.min.js' %}" ></script>
+    <script src="{% static 'core/js/bootstrap.min.js' %}" ></script>
+    <script src="{% static 'visores/js/portadaInicialMeta.js' %}"></script>
+{% endblock %}
+

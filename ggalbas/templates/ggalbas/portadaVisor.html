@@ -4,6 +4,13 @@
 
 {% block bg-imagen %} background-image: url('{% static 'core/images/fondos/Diag-PInicial-Fondo1.png' %} {% endblock %}
 
+{% block header %}
+
+    class="header modulo-info d-md-inline-block text-center  px-3 w-100 shadow-sm  bg-blue align-self-start text-white "
+
+{% endblock %}
+
+
 {% block barra %}
     <div class="col-5 col-sm-3 col-lg-2 text-center d-flex align-items-center">
         <button id="vuelveAnteP" type="button" class="btn btn-light rounded-pill box-shadow w-100"><span><img src="{% static 'core/images/objetos/triangle-curved.svg' %}" width="18"></span> Volver</button>
@@ -16,20 +23,33 @@
 {% endblock %}
 
 {% block content %}
-                <div class="col-12 col-sm-8 col-md-8 col-lg-7 offset-lg-1">
-                    <div class="d-flex align-items-center justify-content-center h-100">
-                        <img src="{% static 'core/images/personajes/' %}{{personajes_a}}" class="img-fluid d-none d-xl-block" alt="">
-                        <img src="{% static 'core/images/personajes/' %}{{personajes_b}}" class="img-fluid d-xl-none">
-                    </div>
-                </div>
+    <div class="col-12 col-sm-8 col-md-8 col-lg-7 offset-lg-1">
+        <div class="d-flex align-items-center justify-content-center h-100">
+            {% if request.session.numero_nivel >= 3 and request.session.numero_nivel <= 5 %}
+                <img src="{% static 'core/images/personajes/' %}Diag-PInicial-basica345-1.png" class="img-fluid d-none d-xl-block" alt="">
+                <img src="{% static 'core/images/personajes/' %}Diag-PInicial-basica345-2.png" class="img-fluid d-xl-none">
+            {% elif request.session.numero_nivel >= 6 and request.session.numero_nivel <= 8 %}
+                <img src="{% static 'core/images/personajes/' %}Diag-PInicial-basica678-1.png" class="img-fluid d-none d-xl-block" alt="">
+                <img src="{% static 'core/images/personajes/' %}Diag-PInicial-basica678-2.png" class="img-fluid d-xl-none">
+            {% endif %}
 
-                <div class="offset-3 offset-sm-0 col-6 col-sm-3 col-lg-2">
-                    <div class="d-flex align-items-center justify-content-center h-100">
-                        <a href="{% url 'visorActividades' %}" class="text-center"><img src="{% static 'core/images/objetos/flecha-lg.png' %}" class="img-fluid w-md-auto" alt=""></a>
-                    </div>
-                </div>
+        </div>
+    </div>
+
+    <div class="offset-3 offset-sm-0 col-6 col-sm-3 col-lg-2">
+        <div class="d-flex align-items-center justify-content-center h-100">
+            <a href="{% url 'visorActividades' %}" class="text-center"><img src="{% static 'core/images/objetos/flecha-lg.png' %}" class="img-fluid w-md-auto" alt=""></a>
+        </div>
+    </div>
+
+    <audio autoplay>
+        <source src="{% static 'core/audios/portadas/PX_portada_inicial_diagnostico.ogg' %}" type="audio/ogg">
+        <source src="{% static 'core/audios/portadas/PX_portada_inicial_diagnostico.mp3' %}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
 {% endblock %}
 
 {% block extrascript %}
-    <script src="{% static 'ggalbas/js/diagnostico.js' %}"></script>
+    <script src="{% static 'ggalbas/js/portadaVisor.js' %}"></script>
 {% endblock %}

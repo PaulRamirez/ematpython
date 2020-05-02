@@ -31,44 +31,41 @@
                         {% csrf_token %}
                         <div class="form-group row mb-2">
                             <div class="col-sm-3 px-md-0 text-sm-right">
-                                <label for="alumnonuevo-rut" class="col-form-label">Rut:</label>
+                                <label for="alumnonuevo-rut" class="col-form-label">{{variables.rut}}:</label>
                             </div>
                             <div class="col-sm-9">
                                 <div class="row">
                                     <div class="col-8">
-                                        <input type="text" class="form-control input-number" id="rut" placeholder="Ejemplo: 11111111" maxlength="8" autofocus>
+                                        <input type="text" class="form-control input-number" id="rut" maxlength="9" autofocus>
                                     </div>
                                     <div class="col-1 px-0 text-center">
                                             <label for="alumnonuevo-rut-cod" class="col-form-label px-md-0 text-center">-</label>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="form-control p-0 text-center" id  ="validador" placeholder="1" maxlength="1" >
+                                        <input type="text" class="form-control p-0 text-center" id="validador"  maxlength="1" >
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row mb-2">
                             <div class="col-sm-3 px-md-0 text-sm-right">
-                                <label for="alumnonuevo-curso" class="col-form-label">Curso:</label>
+                                <label for="alumnonuevo-curso" class="col-form-label">{{variables.curso}}:</label>
                             </div>
                             <div class="col-sm-9">
                                 <div class="row">
                                     <div class="col-12 col-sm-7">
                                         <select id="curso" class="custom-select form-control">
-                                            <option value="" selected="">...</option>
-                                            <option value="3">3 BÁSICO</option>
-                                            <option value="4">4 BÁSICO</option>
-                                            <option value="5">5 BÁSICO</option>
-                                            <option value="6">6 BÁSICO</option>
-                                            <option value="7">7 BÁSICO</option>
-                                            <option value="8">8 BÁSICO</option>
-                                        </select>
+                                                <option value="" selected="">...</option>
+                                                {% for nivel in variables.niveles %}
+                                                    <option value="{{nivel.id_nivel}}">{{nivel.nivel}}</option>
+                                                {% endfor %}
+                                            </select>
                                     </div>
                                     <div class="col-sm-2 px-md-0 text-sm-right">
                                         <label for="alumnonuevo-curso-letra" class="col-form-label">Letra:</label>
                                     </div>
                                     <div class="col-12 col-sm-3">
-                                        <input type="text" class="form-control p-0 text-center" id="letra" placeholder="A" onkeypress="return /[a-z]/i.test(event.key)" maxlength="3">
+                                        <input type="text" class="form-control p-0 text-center" id="letra"  onkeypress="return /[a-z]/i.test(event.key)" maxlength="3">
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +127,7 @@
                             <div class="col-sm-3 px-md-0 text-sm-right">
                                 <label for="respuesta-pregunta" class="col-form-label">Respuesta:</label>
                             </div>
-                            <div class="col-sm-9">
+                            <div class="col-sm-9 mb-2">
                                 <div class="row">
                                     <div class="col-12">
                                         <input type="text" class="form-control" id="respuesta" maxlength="50" autocomplete="off">
@@ -138,6 +135,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" value="{{variables.pais}}" id="pais">
 
                         <div class="col-sm-9 offset-sm-3">
                             <div class="row">

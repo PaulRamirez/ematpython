@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Error | EMAT </title>
+    {% load static %}
+    <link href="{% static 'core/images/favicon_emat.png' %}" rel="icon" />
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/style2.css' %}">
+</head>
+<body class="row m-0 justify-content-center align-items-center vh-100 bg-light">
+        <div class="container d-flex mt-12">
+            <div class="row">
+                <div class="text-justify mb-3">
+                    <h5>¡Ups!, ha ocurrido un error.</h5>
+                    <h5>Ingresa nuevamente a tu libro haciendo clic en el botón correspondiente.</h5>
+                    <h5>Si el problema persiste contáctate con mesa de ayuda <a href="mailto:soporte@compumat.cl?Subject=informacion%20Emat%20Guiado%20via%20Demo">soporte@compumat.cl</a> </h5>
+                </div>
+                <div class="col-5">
+                    <a href="{% url 'index' %}">
+                    <button id="alumno" type="button" class="btn btn-primary btn-lg btn-principal btn-block">Alumno</button>
+                    </a>
+                </div>
+                <div class="col-5">
+                    <a href="{% url 'index-tutor' %}">
+                    <button id="tutor" type="button" class="btn btn-primary btn-lg btn-principal btn-block">Tutor</button>
+                    </a>
+                </div>
+            </div>
+            <div class="row img-nino">
+                <img src="{% static 'core/images/personajes/Nino_01_4.png' %}" alt="nino">
+            </div>
+
+    </div>
+
+</body>
+</html>

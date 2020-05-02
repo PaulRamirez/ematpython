@@ -1,0 +1,162 @@
+{% extends 'ggtutbas/base.html' %}
+{% load static %}
+{% block title %} Manual de Uso {% endblock %}
+
+{% block nombreTutor %} {{fullName}} {% endblock %}
+{% block nombreColegio %} {{nombreColegio}} {% endblock %}
+
+{% block list %}
+
+{% endblock %}
+
+{% block result %} {{variables.menuResultadosCurso}} {% endblock %}
+{% block planOA %} {{variables.menuPlanificacion}} {% endblock %}
+{% block titulo %}Manual de Uso {% endblock %}
+
+{% block content %}
+    <div class="card-columns" >
+
+        <div class="card border-secondary">
+                        <div class="card-header">Estructura del programa</div>
+                      <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <p class="card-text" align="justify">¡Descubre la estructura del programa EMAT Guiado!</p>
+                        <a href="#" data-url="{% static 'ggtutbas/pdf/manual_usuario/EstructuraPrograma_EMAT-G_2020_28022020.pdf'%}"  class="btn btn-primary boton_ver">Ver</a>
+                      </div>
+                    </div>
+
+            {% if cantidadListasDiferenciadas > 0 %}
+
+                  <div class="card border-secondary">
+                        <div class="card-header">EMAT Diferenciado</div>
+                      <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <p class="card-text" align="justify">Al menos una de las listas que tienes asignada, cuenta con el complemento EMAT Diferenciado. Conoce en qu&eacute; consiste este complemento.</p>
+                        <a href="#" data-url="{% static 'ggtutbas/pdf/manual_usuario/EMAT-GD_2020_28022020.pdf'%}"   class="btn btn-primary boton_ver">Ver</a>
+                      </div>
+                    </div>
+
+            {% endif %}
+
+        <div class="card border-secondary">
+                        <div class="card-header">Resumen colegio</div>
+                      <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <p class="card-text" align="justify">Conoce el detalle de la informaci&oacute;n entregada en Resumen colegio</p>
+                        <a href="#"  data-url="{% static 'ggtutbas/pdf/manual_usuario/ResumenColegio-EMAT-G_26022020.pdf'%}" class="btn btn-primary boton_ver">Ver</a>
+                      </div>
+                    </div>
+
+       <!-- <div class="card border-secondary">
+                        <div class="card-header">Evaluaciones anuales</div>
+                      <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <p class="card-text" align="justify">Conoce la estructura del reporte de evaluaciones anuales y el detalle de la informaci&oacute;n que entrega.</p>
+                        <a href="#" data-url="{% static 'ggtutbas/pdf/manual_usuario/'%}"   class="btn btn-primary boton_ver">Ver</a>
+                      </div>
+                    </div> -->
+
+        <div class="card border-secondary">
+                    <div class="card-header">Evaluaciones parciales: Por contenido</div>
+                  <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text" align="justify">Interpretar exitosamente los resultados de las evaluaciones por contenido, te explicamos la informaci&oacute;n que entrega.</p>
+                    <a href="#"  data-url="{% static 'ggtutbas/pdf/manual_usuario/EvaluacionesPorContenido_EMAT-G_28022020.pdf'%}" class="btn btn-primary boton_ver">Ver</a>
+                  </div>
+                </div>
+
+        <div class="card border-secondary">
+                    <div class="card-header">Evaluaciones parciales: Nota EMAT</div>
+                  <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text" align="justify">Conoce el funcionamiento y criterios para calcular la nota mensual EMAT.</p>
+                    <a href="#" data-url="{% static 'ggtutbas/pdf/manual_usuario/Nota Mensual-EMAT-G_22042020.pdf'%}"  class="btn btn-primary boton_ver">Ver</a>
+                  </div>
+                </div>
+
+        <div class="card border-secondary">
+                <div class="card-header">Resultados curso: Avance y rendimiento curso</div>
+              <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text" align="justify">Avance y rendimiento son dos criterios de evaluaci&oacute;n y seguimiento que el programa te ofrece, aqu&iacute; podr&aacute;s conocer estos criterios y la informaci&oacute;n que se entrega.</p>
+                <a href="#" data-url="{% static 'ggtutbas/pdf/manual_usuario/ResultadosCurso_AvanceRendimiento_EMAT-G_2020.pdf'%}"   class="btn btn-primary boton_ver">Ver</a>
+              </div>
+            </div>
+
+
+        <div class="card border-secondary">
+        <div class="card-header">Resultados curso: Distribuci&oacute;n y resultados por curso</div>
+      <div class="card-body">
+        <h5 class="card-title"></h5>
+        <p class="card-text" align="justify">Para brindar un mejor seguimiento y apoyo, conoce el detalle de la informaci&oacute;n que entrega respecto de la distribuci&oacute;n del curso en los contenidos del programa y sus resultados.</p>
+        <a href="#"  data-url="{% static 'ggtutbas/pdf/manual_usuario/ResultadosCurso_DistribuciónyResultadosPorContenido_EMAT-G_26022020.pdf'%}" class="btn btn-primary boton_ver">Ver</a>
+      </div>
+    </div>
+
+    <!-- <div class="card border-secondary">
+            <div class="card-header">Detalle alumno</div>
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text" align="justify">Conoce la informaci&oacute;n que entrega el detalle de cada estudiante.</p>
+            <a href="#" data-url="{% static 'ggtutbas/pdf/manual_usuario/'%}"  class="btn btn-primary boton_ver">Ver</a>
+          </div>
+        </div> -->
+        <div class="card border-secondary">
+        <div class="card-header">Planificaci&oacute;n: Datos alumno</div>
+      <div class="card-body">
+        <h5 class="card-title"></h5>
+        <p class="card-text" align="justify">Aprende c&oacute;mo inscribir y editar informaci&oacute;n de tus alumnos(as).</p>
+        <a href="#" data-url="{% static 'ggtutbas/pdf/manual_usuario/DatosAlumno_EMAT-G-2020_28022020.pdf'%}"   class="btn btn-primary boton_ver">Ver</a>
+      </div>
+    </div>
+
+        <div class="card border-secondary">
+        <div class="card-header">Planificaci&oacute;n: Edici&oacute;n de unidades</div>
+      <div class="card-body">
+        <h5 class="card-title"></h5>
+        <p class="card-text" align="justify">Descubre c&oacute;mo organizar los contenidos de cada unidad, para ajustarlos a tu planificaci&oacute;n.</p>
+        <a href="#"  data-url="{% static 'ggtutbas/pdf/manual_usuario/ComoEditarRecorrido-EMAT-G_2020_28022020.pdf'%}" class="btn btn-primary boton_ver">Ver</a>
+      </div>
+    </div>
+
+
+        <div class="card border-secondary">
+            <div class="card-header">Planificaci&oacute;n: Activaci&oacute;n de unidades</div>
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text" align="justify">Conoce las opciones de activaci&oacute;n de unidades y c&oacute;mo administrarlas.</p>
+            <a href="#"  data-url="{% static 'ggtutbas/pdf/manual_usuario/ActivarUnidades_EMAT-G_2020_28022020.pdf'%}" class="btn btn-primary boton_ver">Ver</a>
+          </div>
+        </div>
+
+        <div class="card border-secondary">
+            <div class="card-header">Actividades EMAT</div>
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text" align="justify">Conoce las caracter&iacute;sticas de cada actividad del programa EMAT</p>
+            <a href="#" data-url="{% static 'ggtutbas/pdf/manual_usuario/Actividades-eMAT-GD_2020_26022020.pdf'%}"  class="btn btn-primary boton_ver">Ver</a>
+          </div>
+        </div>
+
+        <div class="card border-secondary">
+            <div class="card-header">CHAT</div>
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text" align="justify">Aprende como acceder al chat y algunos de tips para su uso.</p>
+            <a href="#" data-url="{% static 'ggtutbas/pdf/manual_usuario/CHAT_2020.pdf'%}"   class="btn btn-primary boton_ver">Ver</a>
+          </div>
+        </div>
+    </div>
+<br>
+
+
+{% endblock %}
+
+{% block curso %} <div id="codigo-curso" style="display:none">{{codLista}}</div>{% endblock %}
+
+
+{% block extrascript %}
+    <script src="{% static 'ggalbas/js/DjangoAjax.js' %}"></script>
+    <script src="{% static 'ggtutbas/js/principal.js' %}"></script>
+    <script src="{% static 'ggtutbas/js/manual_usuario.js' %}"></script>
+{% endblock %}

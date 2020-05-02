@@ -1,0 +1,281 @@
+body{
+font-family:century gothic !important;
+}
+.datos-tutor{
+color: #666666 !important;
+}
+
+.nav-item select{
+margin-left: 1.6vh;
+}
+.bg-orange{
+background:#FFCC33 !important;
+}
+.bg-naranjo{
+background: #FFCC66 !important;
+}
+.text-white{
+color: #ffffff;
+}
+.text-black{
+color: #000 !important;
+}
+.menu-disabled{
+pointer-events:none;
+opacity:0.6;
+}
+/*.pdf{
+height: 78%;
+margin-left: 6vh;
+}*/
+.error_formulario{
+	color: red;
+	font-size: .8rem;
+}
+.footer{
+display: flex;
+align-items: center;
+justify-content: space-around;
+
+}
+.contact-footer{
+display: flex;
+}
+.contact-footer div{
+margin-left: 2em;
+}
+.img-footer img{
+width: 18vh;
+}
+
+.contact-footer img {
+width: 1.5vw;
+}
+
+.social-footer{
+display: flex;
+flex-wrap: wrap;
+justify-content: flex-end;
+}
+.social{
+margin-right: 1.2rem;
+}
+.social img {
+width: 80%;
+}
+
+.sticky-footer{
+padding: 0.5rem 0 !important;
+}
+
+.texto-footer{
+    color: #000000;
+    margin-left: 1.5vh;
+    font-size: calc(.4vw + .5vh + .65vmin);
+
+}
+.social:hover{
+	transform: scale(1.22);
+	-webkit-transform: scale(1.22);
+	-moz-transform: scale(1.22);
+	-ms-transform: scale(1.22);
+	-o-transform: scale(1.22);
+}
+
+/* Orden de Contenidos */
+
+.orden-container{
+    display:flex;
+}
+
+.contenidos .placeholder {
+border: 1px dotted #6192b7;
+background: #ffbd4f;
+height: 1.5em;
+line-height: 1.2em;
+margin: 1rem;
+padding: 0 2rem;
+border-radius: 10px 15px;
+}
+
+
+td>.celda-edit{
+    border-bottom: 1px solid #aca5a5;
+    border-radius: 10px 15px;
+    background: beige;
+    margin: 1rem;
+    padding: 0 2rem;
+}
+
+.orden-tabla{
+    border: 1px solid #000 !important;
+    width:100%;
+    margin-left: 20px;
+    text-align: center;
+    color: #000000;
+    font-size: calc(.7vw + .7vh + .65vmin);
+    order: 0;
+
+}
+td>.celda-orden{
+   /* border-bottom: 1px solid #aca5a5;*/
+}
+td>.celda-orden:last-child{
+    border: none;
+}
+
+.orden-descripcion{
+    display:flex;
+    order:1;
+    flex-direction: column;
+    margin: 0 2vh;
+}
+.orden-descripcion p {
+text-align:justify;
+}
+.orden {
+    font-size: calc(.6vw + .5vh + .55vmin);
+}
+.activar-unidades p {
+text-align:justify;
+}
+.orden-titulo {
+    /*font-size: calc(0.95vw + 0.9vh + .55vmin);
+    margin:0 7vh 3vh;*/
+    font-size: 1.3rem;
+}
+.celda-left{
+    text-align:left;
+}
+.celda-center{
+    text-align:center;
+}
+.orden-boton{
+    margin-bottom: 1em;
+}
+
+@media (max-width: 768px) {
+.orden-container{
+    display:block;
+    }
+}
+.activa-tabla{
+color: #000000;
+}
+.activa-tabla thead{
+    background: #dfecf2;
+    line-height: 1.15;
+    color: #212529;
+}
+.disable{
+pointer-events:none;
+opacity:0.6;
+}
+.boton-activar{
+display: flex;
+justify-content: flex-end;
+align-items: center;
+margin-bottom: 1em;
+}
+
+.bloquear{
+pointer-events: none;
+opacity: 0.6;
+
+}
+
+.nav-item:hover{
+background: #FFCC33;
+}
+
+
+@media (max-width:767px) {
+
+.custom-select {
+width: 80%;
+font-size: .5rem;
+}
+#id_preguntas{
+font-size: .9rem !important;
+}
+.contact-footer{
+display:none;
+}
+.sidebar{
+width: 0;
+overflow: hidden;
+}
+}
+
+@media (min-width: 768px) {
+
+.contact-footer{
+flex-direction:column;
+}
+
+ }
+ @media (min-width: 1200px) {
+
+.contact-footer{
+flex-direction:row;
+}
+
+ }
+
+.tbl-datos {
+margin-bottom: 2rem !important;
+}
+
+.parrafo{
+display: flex;
+flex-direction: column;
+justify-content:center;
+align-items:center;
+/*margin: 0 7vh;*/
+text-align: justify;
+}
+.parrafo p {
+margin-bottom: 5vh;
+text-align: justify;
+}
+.slider-index{
+margin-bottom: 4vh;
+}
+
+td .bg-naranjo {
+border-radius: 20px;
+text-align: center;
+margin-top: 0.8rem;
+}
+
+#tablaAlumno {
+font-size: .9rem;
+}
+.diferenciado{
+margin: 0 1.5em 1em;
+
+}
+.acordeon-alumno{
+color: #6e707e;
+background-color: #eaecf4;
+border-color: #e3e6f0 !important;
+}
+
+.btn-datosAlumno{
+display: flex;
+margin-right: -.75rem;
+margin-left: -.75rem;
+}
+
+.table td, .table th{
+vertical-align: middle;
+}
+
+th, td{
+    border: 1px solid #000 !important;
+    color: #212529 !important;
+}
+
+.table-bordered td, .table-bordered th {
+    border: 1px solid #dee2e6 !important;
+}

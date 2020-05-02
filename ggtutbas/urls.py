@@ -1,0 +1,45 @@
+from django.urls import path
+
+from ggtutbas.views import Pdf
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index-tutor'),
+    path('validaIngreso', views.validaIngreso, name='validaIngreso'),
+    path('registroTutor', views.registroTutor, name='registroTutor'),
+    path('registroTutor/agregarTutor', views.agregarTutor, name='agregarTutor'),
+    path('recuperaClave', views.recuperaClave, name='recuperaClave'),
+    path('recuperaClave/verificaRut', views.verificaRut, name='verificaRut'),
+    path('recuperaClave/verificaRespuesta', views.verificaRespuesta, name='verificaRespuesta'),
+    path('menuPrincipal', views.menuPrincipal, name='menuPrincipal'),
+    path('menuPrincipal/consultaListas', views.consultaListas, name='consultaListas'),
+    path('descripcionAnual', views.descripcionAnual, name='descripcionAnual'),
+    path('descripcionContenido', views.descripcionContenidos, name='descripcionContenido'),
+    path('datosAlumno', views.datosAlumno, name='datosAlumno'),
+    path('sessionCurso', views.sessionCurso, name='sessionCurso'),
+    path('listarPreguntaUsuarios', views.listarPreguntaUsuarios, name='listarPreguntaUsuarios'),
+    path('guardarAlumno', views.guardarAlumno, name='guardarAlumno'),
+    path('editarAlumno', views.editarAlumno, name='editarAlumno'),
+    path('verificarAlumno', views.verificarAlumno, name='verificarAlumno'),
+    path('consultarAlumno', views.consultarAlumno, name='consultarAlumno'),
+    path('listarAlumnosPorLista', views.listarAlumnosPorLista, name='listarAlumnosPorLista'),
+    path('ordenContenido', views.ordenContenido, name='ordenContenido'),
+    path('ordenContenido/sessionCurso', views.sessionCurso, name='sordenSession'),
+    path('ordenContenido/editarPosicion', views.editarPosicion, name='editarPosicion'),
+    path('ordenContenido/editarPosicion/ordenPosicion', views.ordenPosicion, name='ordenPosicion'),
+    path('datosAlumno/credencialesAlumnos', Pdf.as_view(), name='credenciales'),
+    path('activarunidades', views.activarUnidades, name='activarUnidades'),
+    path('activaUnidad', views.activaUnidad, name='activaUnidad'),
+    path('activarunidades/cambiarModoActiva', views.cambiarModoActiva, name='cambiarModoActiva'),
+    path('resumenColegio', views.resumenColegio, name='resumenColegio'),
+    path('descripcionEvaluacionesAnuales', views.descripcionEvaluacionesAnuales, name='descripcionEvaluacionesAnuales'),
+    path('diagnosticoEvaluacionesAnuales', views.diagnosticoEvaluacionesAnuales, name='diagnosticoEvaluacionesAnuales'),
+    path('pruebaIntEvaluacionesAnuales', views.pruebaIntEvaluacionesAnuales, name='pruebaIntEvaluacionesAnuales'),
+    path('contenidoEvaluacionesParciales', views.contenidoEvaluacionesParciales, name='contenidoEvaluacionesParciales'),
+    path('avanceResultadosCurso', views.avanceResultadosCurso, name='avanceResultadosCurso'),
+    path('manualUsuario', views.manualUsuario, name='manualUsuario'),
+    path('detalleAlumno', views.detalleAlumno, name='detalleAlumno'),
+    path('notaMensual', views.notaMensual, name='notaMensual'),
+    path('distribucionResultado', views.distribucionResultado, name='distribucionResultado'),
+
+]

@@ -1,0 +1,42 @@
+{% extends 'ggalbas/base.html' %}
+
+{% load static %}
+
+{% block title %} visor actividad {% endblock %}
+
+{% block header %}
+
+    class="header modulo-info d-md-inline-block text-center  px-3 w-100 shadow-sm panel-celeste py-2"
+
+{% endblock %}
+
+{% block barra %}
+
+<div class="col-6 col-sm-6 mb-2 mb-sm-0 text-left">
+                <div class="nombre-alumno mb-1 font-weight-bold">¡Bienvenid@! <span class="d-block">{{ request.session.nombres }}</span></div>
+                <div class="row">
+                    <div class="col-12 unidad">{{request.session.nivel}}</div>
+                    <div class="col-12 colegio">{{request.session.rbd}}</div>
+                </div>
+            </div>
+            <div class="col-6 col-sm-6 d-flex align-items-center justify-content-end flex-wrap text-right header-profile">
+                <!-- <a href="#" class="btn mis-logros text-shadow">
+                    Mis Logros
+                </a> -->
+                <a href="{% url 'complementariasUnidad' %}" class="btn volver text-shadow">
+                    Volver
+                </a>
+            </div>
+{% endblock %}
+
+{% block content %}
+
+<h1>Visor de actividad</h1><hr>
+
+<ul>
+    <li><h2>Contenido: {{objContenidoFaseActividad.id_contenido.descripcion}}</h2></li>
+    <li><h2>Tipo de actividad: {{objContenidoFaseActividad.id_actividad.id_tipo_actividad.nombre_tipo}}</h2></li>
+    <li><h2>Siglas de la actividad: {{objContenidoFaseActividad.id_actividad.nombre_actividad}}</h2></li>
+</ul>
+
+{% endblock %}

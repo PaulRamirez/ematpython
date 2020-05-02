@@ -16,6 +16,7 @@ $('#entrar').attr("disabled", true);
 $('#validador').keyup(function(e){
 
     var rutCompleto = $("#rut").val().trim()+"-"+$("#validador").val().trim();
+    var pais= $('#pais').val().trim();
     $('#errorRut').html('').fadeOut(1000);
     $('#errorPass').html('').fadeOut(1000);
     $('#errorCaptcha').html('').fadeOut(1000);
@@ -23,7 +24,12 @@ $('#validador').keyup(function(e){
     if($("#rut").val().trim()=="" || $("#validador").val().trim()=="" ){
         //$('#errorRut').html('<span>rut o validador vacios</span>').fadeIn(1000);
     }else if(Fn.validaRut(rutCompleto)==false){
+        if (pais=='cl'){
        $('#errorRut').html('<span>Debe ingresar un Rut válido</span>').fadeIn(1000);
+       }
+       else{
+       $('#errorRut').html('<span>Debe ingresar un Id usuario válido</span>').fadeIn(1000);
+       }
     }else{
 
        cargaAnimacion();
@@ -109,15 +115,27 @@ function quitarAnimacion(){
 
 function  ingresoSoloRut(){
    var rutCompleto = $("#rut").val().trim()+"-"+$("#validador").val().trim();
+   var pais= $('#pais').val().trim();
    $('#errorRut').html('').fadeOut(1000);
 
   if($('#rut').val().trim() =="" || $('#validador').val().trim() ==""){
+        if (pais=='cl'){
        $('#errorRut').html('<span>rut o validador vacios</span>').fadeIn(1000);
+       }
+       else{
+       $('#errorRut').html('<span>Id usuario vacio</span>').fadeIn(1000);
+       }
     }else if(Fn.validaRut(rutCompleto)==false){
+    if (pais=='cl'){
        $('#errorRut').html('<span>Debe ingresar un Rut válido</span>').fadeIn(1000);
+       }
+       else{
+       $('#errorRut').html('<span>Debe ingresar un Id usuario válido</span>').fadeIn(1000);
+       }
     } else{
 
     cargaAnimacion();
+
 
     $.ajax({
             async: true,
@@ -129,12 +147,12 @@ function  ingresoSoloRut(){
             },
             success: function (respuesta){
                   quitarAnimacion();
-                  if(respuesta.status=='datos alumno ok'){
-                    if (respuesta.nuevo){
-                        $(location).attr('href',"antePortada");
-                    }else{
-                        $(location).attr('href',"unidadesAlumno");
-                    }
+                  if(parseInt(respuesta.estatus)==1){
+
+                        $(location).attr('href',respuesta.url_alumno);
+                  }
+                  else if(parseInt(respuesta.estatus)==0){
+                    console.log(respuesta.mensaje)
                   }
             }
     });
@@ -149,11 +167,23 @@ function ingresoCompleto(){
       $('#errorRut').html('').fadeOut(1000);
       $('#errorPass').html('').fadeOut(1000);
       $('#errorCaptcha').html('').fadeOut(1000);
+      var pais= $('#pais').val().trim();
+
 
     if($('#rut').val().trim() =="" || $('#validador').val().trim() ==""){
+        if (pais=='cl'){
        $('#errorRut').html('<span>rut o validador vacios</span>').fadeIn(1000);
+       }
+       else{
+       $('#errorRut').html('<span>Id usuario o validador vacios</span>').fadeIn(1000);
+       }
     }else if(Fn.validaRut(rutCompleto)==false){
+        if (pais=='cl'){
        $('#errorRut').html('<span>Debe ingresar un Rut válido</span>').fadeIn(1000);
+       }
+       else{
+        $('#errorRut').html('<span>Debe ingresar un Id usuario válido</span>').fadeIn(1000);
+        }
     }else if($('#password').val().trim()==""){
          $('#errorPass').html('<span> Debe ingresar su contraseña</span>').fadeIn(1000);
     }else if($('#img-captcha').text()!=$('#texto-captcha').val() || $('#texto-captcha').val().trim()=="" ){
@@ -173,17 +203,15 @@ function ingresoCompleto(){
                     ip: $("#ip").val(),
             },
             success: function (respuesta){
-              quitarAnimacion();
-              if(respuesta.status=='datos alumno ok'){
-                    if (respuesta.nuevo){
-                        $(location).attr('href',"antePortada");
-                    }else{
-                        $(location).attr('href',"unidadesAlumno");
-                    }
-              }
-              else{
-                 $('#errorPass').html('<span>El rut y/o contraseña ingresados no son válidos</span>').fadeIn(1000);
-              }
+                  quitarAnimacion();
+
+                  if(parseInt(respuesta.estatus) == 1){
+
+                        $(location).attr('href',respuesta.url_alumno);
+
+                  } else if(parseInt(respuesta.estatus) == 0){
+                     $('#errorPass').html('<span>'+respuesta.mensaje+'</span>').fadeIn(1000);
+                  }
             }
           });
     }

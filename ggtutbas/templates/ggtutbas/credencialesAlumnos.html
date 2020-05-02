@@ -1,0 +1,25 @@
+{% load static %}
+
+<div>
+    {% for alumno in alumnos %}
+    <div>
+        <div><h1>Credencial alumno EMAT</h1>
+            <img src="{% static 'core/images/branding/logo-emat.png' %}" alt="logo-emat">
+        </div>
+        <div>
+            <h3>Colegio:</h3>
+            <h2>{{colegio}}</h2>
+        </div>
+        <div>
+            <h3>Curso:</h3>
+            <h2>{{curso}}</h2>
+        </div>
+        <div>
+            <h3>Nombre:</h3>
+        </div>
+        <div>
+            <h3>Rut:</h3>
+        </div>
+    </div>
+    {% endfor %}
+</div>

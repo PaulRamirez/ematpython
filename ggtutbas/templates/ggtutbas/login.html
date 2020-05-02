@@ -1,0 +1,84 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %} Login Tutor {% endblock %}
+
+{% block content %}
+    <div class="container py-4">
+            <div class="row">
+                <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                    <div class="box-container rounded-box shadow-sm position-relative">
+                        <div class="position-absolute d-none d-md-block shape-shadow" style="left: -130px;bottom: -40px;">
+                            <img src="{% static 'core/images/tutor/prof1.svg' %}" width="230">
+                        </div>
+                        <div class="position-absolute d-none d-md-block shape-shadow" style="right: -100px;bottom: -30px;">
+                            <img src="{% static 'core/images/tutor/prof2.svg' %}" width="165">
+                        </div>
+                        <header class="bg-gradient-yellow rounded-header libro-alumno basico text-white text-center">
+                            <div class="w-100">
+                                <img src="{% static 'core/images/branding/logo.png' %}" class="img-fluid header-logo my-3" width="200" alt="eMat">
+                            </div>
+                            <div class="w-100">
+                                <h1 class="h3 py-2 mb-0 text-shadow">Libro del Tutor</h1>
+                            </div>
+                        </header>
+                        <div class="col-md-8 offset-md-2 mt-4 mb-2">
+                            <form class="form-login" method="POST" autocomplete="off">
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="form-group col-12 mb-2">
+                                        <label for="codColegio">Código Colegio</label>
+                                        <input type="text" class="form-control input-number" id="codColegio" autofocus="">
+                                    </div>
+                                </div>
+                                <div id="errorCodigo" class="error"></div>
+                                <div class="form-row">
+                                    <div class="form-group col-9 mb-2">
+                                        <label for="rut">{{variables.rut}}</label>
+                                        <input type="text" class="form-control input-number" id="rut" maxlength="8">
+                                    </div>
+                                    <div class="form-group col-1 mb-2 guion-input text-center align-self-end pb-2">
+                                    <span>-</span>
+                                    </div>
+                                    <div class="form-group col-2 mb-2">
+                                    <label for="validador"></label>
+                                    <input type="text" class="form-control p-0 text-center" id="validador" maxlength="1">
+                                    </div>
+                                </div>
+                                <div id="errorRut" class="error"></div>
+                                <div class="form-row">
+                                    <div class="form-group col-12 mb-2">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" id="password">
+                                    </div>
+                                </div>
+                                <div id="errorPassword" class="error"></div>
+                                <input type="hidden" id="pais" value="{{variables.pais}}">
+                                <br>
+                                <button id="entrar" type="button" class="btn btn-primary btn-lg btn-principal btn-block">Entrar</button>
+                                <div class="form-row">
+                                    <div class="col-6">
+                                        <a href="{% url 'registroTutor' %}">
+                                            <button type="button" class="btn btn-link btn-brown btn-block text-center">Registro Tutores Nuevos</button>
+                                        </a>
+                                    </div>
+                                    <div class="col-6">
+                                        <a href="{% url 'recuperaClave' %}">
+                                            <button type="button" class="btn btn-link btn-brown btn-block text-center">¿Olvidaste tu Password?</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <footer class="bg-basica rounded-footer text-white text-shadow text-center py-1 small font-weight-bold">EMAT | BÁSICA GUIADO</footer>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+{% endblock %}
+
+{% block extrascript %}
+    <script src="{% static 'ggalbas/js/DjangoAjax.js' %}"></script>
+    <script src="{% static 'ggtutbas/js/login.js' %}"></script>
+{% endblock %}

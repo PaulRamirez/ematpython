@@ -28,13 +28,24 @@
 function validaForm(){
 
   $('#registro').on('click', function(){
+  var pais= $('#pais').val().trim();
 
       if ($('#rut').val() =="" || $('#validador').val()==""){
+            if (pais=='cl'){
             $('#textoErrorModal').html('Para registrarse ingrese su RUT');
+            }
+            else{
+            $('#textoErrorModal').html('Para registrarse ingrese su Id usuario');
+            }
             $('#modalError').modal("show");
        }
        else if (Fn.validaRut($('#rut').val()+'-'+$('#validador').val())==false){
+       if (pais=='cl'){
           $('#textoErrorModal').html('Debe ingresar un Rut válido');
+          }
+          else{
+          $('#textoErrorModal').html('Debe ingresar un Id usuario válido');
+          }
           $('#modalError').modal("show");
        }
        else if (($('#curso').val()=="") || ($('#letra').val()=="")){
@@ -45,11 +56,11 @@ function validaForm(){
             $('#textoErrorModal').html('Para registrarse ingrese el código de lista');
             $('#modalError').modal("show");
        }
-        else if($('#nombres').val().trim()=="" || $("#nombres").val().trim().length < 3 ){
+        else if($('#nombres').val().trim()=="" || $("#nombres").val().trim().length < 2 ){
            $('#textoErrorModal').html('Para registrarse ingrese sus nombres');
            $('#modalError').modal("show");
        }
-        else if($('#apellidos').val().trim()=="" || $("#apellidos").val().trim().length < 3){
+        else if($('#apellidos').val().trim()=="" || $("#apellidos").val().trim().length < 2){
            $('#textoErrorModal').html('Para registrarse ingrese sus apellidos');
            $('#modalError').modal("show");
        }
@@ -79,7 +90,16 @@ function validaForm(){
                           },
                   success: function(respuesta){
                         if(respuesta.alumno=='alumno existe'){
+                        if (pais=='cl'){
                           $('#textoErrorModal').html('El rut ingresado ya se encuentra registrado');
+                          }
+                          else{
+                          $('#textoErrorModal').html('El Id usuario ingresado ya se encuentra registrado');
+                          }
+                          $('#modalError').modal("show");
+                        }
+                        else if(respuesta.tutor=='no'){
+                          $('#textoErrorModal').html('El código de lista no tiene Tutor asignado');
                           $('#modalError').modal("show");
                         }
                         else  if(respuesta.lista=='error'){
@@ -87,7 +107,7 @@ function validaForm(){
                           $('#modalError').modal("show");
                         }
                         else if(!respuesta.cupo){
-                          $('#textoErrorModal').html('no hay cupo');
+                          $('#textoErrorModal').html('El código de lista no tiene cupos disponibles');
                           $('#modalError').modal("show");
                         }
                         else{

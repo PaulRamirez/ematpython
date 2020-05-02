@@ -1,0 +1,68 @@
+{% extends 'ggtutbas/base.html' %}
+{% load static %}
+{% block title %} Orden Contenido {% endblock %}
+{% block nombreTutor %} {{fullName}} {% endblock %}
+{% block nombreColegio %} {{nombreColegio}} {% endblock %}
+{% if request.path == 'ggtutbas/ordenContenido' %}
+
+    {% block StyleClass %} active {% endblock %}
+    {% block expanded %}true{% endblock %}
+    {% block collapsed %} {% endblock %}
+    {% block showMenu %} show {% endblock %}
+    {% block ordenActiva %} active text-black {% endblock %}
+
+{% endif %}
+
+{% block result %} {{variables.menuResultadosCurso}} {% endblock %}
+{% block planOA %} {{variables.menuPlanificacion}} {% endblock %}
+
+{% block titulo %}Planificación / Orden contenido  {% endblock %}
+
+{% block content %}
+<div>
+    <div class="orden-container">
+        <div class="orden-descripcion">
+            <div class="orden-boton"><a href="{% url 'editarPosicion' %}"><input type="button" class="btn btn-info" value="Organizar contenidos"></a></div>
+            <div class="orden-descripcion"> <p>Los contenidos están organizados en 8 Unidades, las cuales se presentan en la navegación del alumno en orden creciente. Este orden los puedes modificar presionando el botón «Organizar contenidos» para ajustarlo a tus planificaciones.</p></div>
+        </div>
+        <div class="col-md-6 table-responsive">
+                <table class="tabla-orden table table-bordered activa-tabla" width="100%" cellspacing="0">
+            <thead>
+            <tr class="">
+                <th>Unidad</th>
+                <th>Organización Actual</th>
+            </tr>
+        </thead>
+        {% regroup contUnidades by id_unidad as lista_unidades %}
+        <tbody>
+        {% for id_unidad in lista_unidades %}
+        <tr>
+            <td class="celda-center">{{forloop.counter}}</td>
+
+                <td id="" class="celda-left">
+                {% for contenido in id_unidad.list %}
+                    <div data-unidad="" data-contenido="" data-position="" class="celda-orden" >{{ contenido.descripcion }}</div>
+
+            {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+
+
+        </tbody>
+    </table>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block curso %} <div id="codigo-curso" style="display:none">{{codLista}}</div>{% endblock %}
+
+
+
+{% block extrascript %}
+    <script src="{% static 'ggalbas/js/DjangoAjax.js' %}"></script>
+    <script src="{% static 'ggtutbas/js/principal.js' %}"></script>
+{% endblock %}

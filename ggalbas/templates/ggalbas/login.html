@@ -22,21 +22,21 @@
                             <a href="{% url 'nuevoAlumno' %}"><button type="button" class="btn btn-alumno-nuevo text-shadow box-shadow">¿Eres alumno nuevo? </button></a>
                         </div>
                         <div class="nuevo-alumno">
-                            <form class="col-md-8 offset-md-2 form-login" method="POST">
+                            <form class="col-md-8 offset-md-2 form-login" method="POST" autocomplete="off">
                                 {% csrf_token %}
                             <input type="hidden" name="tipoIngreso" id="tipoIngreso">
                             <input type="hidden" name="ip" id="ip">
                               <div class="form-row">
                                     <div class="form-group col-9">
-                                      <label>Rut</label>
-                                      <input type="text" class="form-control input-number" id="rut" placeholder="Ejemplo: 11111111" maxlength="8" autofocus="">
+                                      <label>{{variables.rut}}</label>
+                                      <input type="text" class="form-control input-number" id="rut" maxlength="9" autofocus="">
                                     </div>
                                     <div class="form-group col-1 guion-input text-center align-self-end pb-2">
                                       <span>-</span>
                                     </div>
                                     <div class="form-group col-2">
                                       <br>
-                                      <input type="text" class="form-control" id="validador" placeholder="1" maxlength="1">
+                                      <input type="text" class="form-control" id="validador" maxlength="1">
                                     </div>
                                     <div id="loader" style="display:none">
                                         <img src="/static/ggalbas/images/loader.gif" alt="loader">
@@ -46,17 +46,26 @@
                               <div class="form-row oculto" id="input-password">
                                   <div class="form-group col-12">
                                       <label for="password">Password</label>
-                                      <input type="password" class="form-control" id="password" placeholder="••••••••">
+                                      <input type="password" class="form-control" id="password">
                                   </div>
                               </div>
                               <div id="errorPass" class="error"></div>
-                              <div id="captcha" class="oculto">
-                                <div id="img-captcha" class="col-4">{{ captcha }}</div>
-                                <input id="texto-captcha" type="text" class="form-control input-number col-4" maxlength="4">
-                              </div>
-                              <div id="errorCaptcha" class="error"></div>
-                              <br>
-                              <button id="entrar" type="submit" class="btn btn-primary btn-lg btn-principal btn-block">Entrar</button>
+                                <div class="form-row oculto" id="captcha">
+                                    <div class="form-row ml-1 mb-1">
+                                        <label for="texto-captcha">Ingresa este Código</label>
+                                    </div>
+                                    <div class="form-row ml-1">
+                                        <div id="img-captcha" class="col-4">{{ captcha }}</div>
+                                        <img src="/static/ggalbas/images/flecha.svg" alt="caret-right" width="5%">
+                                      <input id="texto-captcha" type="text" class="form-control input-number col-4" maxlength="4">
+                                    </div>
+
+                                </div>
+
+                              <div id="errorCaptcha" class="error mt-3"></div>
+                                <input type="hidden" id="pais" value="{{variables.pais}}">
+
+                              <button id="entrar" type="submit" class="btn btn-primary btn-lg btn-principal btn-block mt-4">Entrar</button>
                               <a href="recuperaClave">
                                 <button type="button" class="btn btn-link btn-olvidaste btn-block text-center">¿Olvidaste tu Password?</button>
                               </a>
